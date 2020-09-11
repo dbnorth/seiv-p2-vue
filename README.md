@@ -1,6 +1,6 @@
 # seiv-p2-vue
 
-Course Management
+Front End Course Management
 
 ## Project setup
 
