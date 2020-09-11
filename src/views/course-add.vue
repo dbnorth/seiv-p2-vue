@@ -1,7 +1,7 @@
 <template>
     <div>
         <H1>Course Add</H1>
-        <h4>{{ list.name }}</h4>
+        <h4>{{ course.name }}</h4>
         <h4>{{ message }}</h4>
 
         <form @submit.prevent="addCourse">
@@ -18,7 +18,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            list: {},
+            course: {},
             message: 'Enter data and click Save',
         };
     },

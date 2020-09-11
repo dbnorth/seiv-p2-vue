@@ -18,14 +18,14 @@ export default {
   getCourses() {
     return apiClient.get("courses");
   },
-  getCourses(id) {
+  getCourse(id) {
     return apiClient.get("courses/" + id);
   },
   addCourse(course) {
-    return apiClient.post("courses/", list);
+    return apiClient.post("courses/", course);
   },
   updateCourse(course) {
-    return apiClient.put("courses/" + list.id, list);
+    return apiClient.put("courses/" + course.id, course);
   },
   deleteCourse(id) {
     return apiClient.delete("courses/" + id);

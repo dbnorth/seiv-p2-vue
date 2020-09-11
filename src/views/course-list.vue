@@ -2,7 +2,7 @@
     <div>
         <H1>Course List</H1>
         <h4>{{ message }}</h4>
-        <CourseDisplay v-for="course in courses" :key="course.id" :list="course" />
+        <CourseDisplay v-for="course in courses" :key="course.id" :course="course" />
     </div>
 </template>
 
@@ -22,7 +22,8 @@ export default {
     created() {
         CourseServices.getCourses()
             .then(response => {
-                this.courses = response.data.courses;
+                this.courses = response.data;
+                console.log(this.courses);
             })
             .catch(error => {
                 this.message = error.response.data.message;
