@@ -4,5 +4,5 @@ module.exports = {
     host: "localhost"
   },
 
-  publicPath: process.env.NODE_ENV === "development" ? "/" : "/api/"
+  publicPath: process.env.NODE_ENV === "development" ? "/" : "/"
 };
