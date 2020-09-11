@@ -1,10 +1,10 @@
-name: DEPLOY TO STAGING
+name: DEPLOY TO AWS
 
 on:
     pull_request:
-        types : [closed]
+        types: [closed]
         branches:
-            - develop
+            - dev
 
 jobs:
     aws-deploy:
@@ -12,16 +12,16 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                  ref: develop
+                  ref: dev
             - uses: actions/setup-node@v1
             - run: npm install
             - run: npm run build
             - name: Deploy to Server
               uses: easingthemes/ssh-deploy@v2.1.1
               env:
-                    SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-                    ARGS: "-rltgoDzvO --delete"
-                    SOURCE: "dist/"
-                    REMOTE_HOST: "todo.eaglesoftwareteam.com"
-                    REMOTE_USER: ubuntu
-                    TARGET: "/var/www/html/todoapp-vue"
+                  SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+                  ARGS: '-rltgoDzvO --delete'
+                  SOURCE: 'dist/'
+                  REMOTE_HOST: 'team0.eaglesoftwareteam.com'
+                  REMOTE_USER: ubuntu
+                  TARGET: '/var/www/html/courses'
