@@ -19,7 +19,7 @@
             <input type="text" v-model="course.level" />
         </td>
         <td>
-            <button @click="addItem">save</button>
+            <button @click="addCourse">save</button>
         </td>
     </tr>
 </template>
@@ -33,7 +33,7 @@ export default {
     },
 
     methods: {
-        addItem() {
+        addCourse() {
             this.$emit('addCourse', this.course);
         },
     },
