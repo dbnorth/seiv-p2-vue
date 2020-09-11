@@ -4,5 +4,5 @@ module.exports = {
     host: "localhost"
   },
 
-  publicPath: process.env.NODE_ENV === "development" ? "/" : ""
+  publicPath: process.env.NODE_ENV === "development" ? "/" : "/courses/"
 };
