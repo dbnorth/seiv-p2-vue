@@ -11,7 +11,7 @@ Vue.use(Router);
 export default new Router({
   mode: "history",
   base: process.env.NODE_ENV === "development" ? "/" : "/courses/",
-  // "/webpages/todoapp-vue2/dist/",
+
 
   routes: [{
       path: "/",

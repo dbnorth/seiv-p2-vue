@@ -18,6 +18,9 @@ export default {
   getCourses() {
     return apiClient.get("courses");
   },
+  getCoursesForDept(dept) {
+    return apiClient.get("courses?dept=" + dept);
+  },
   getCourse(id) {
     return apiClient.get("courses/" + id);
   },
