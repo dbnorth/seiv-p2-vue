@@ -2,7 +2,7 @@
     <div>
         <H1>Course Delete</H1>
 
-        <h4>Delete {{ course.name }} ?</h4>
+        <h4>Delete {{ course.number }}{{ course.name }} ?</h4>
         <h4>{{ message }}</h4>
         <button v-on:click="deleteCourse()">Delete</button>
         <button v-on:click="cancel()">Cancel</button>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import TodoServices from '@/services/CourseServices.js';
+import CourseServices from '@/services/CourseServices.js';
 export default {
     props: ['id'],
 
@@ -21,9 +21,9 @@ export default {
         };
     },
     created() {
-        TodoServices.getCourse(this.id)
+        CourseServices.getCourse(this.id)
             .then(response => {
-                this.course = response.data.course;
+                this.course = response.data;
             })
             .catch(error => {
                 this.message = error.response.data.message;
@@ -32,9 +32,9 @@ export default {
 
     methods: {
         deleteCourse() {
-            TodoServices.deleteCourse(this.id)
+            CourseServices.deleteCourse(this.id)
                 .then(() => {
-                    this.$router.push({ name: 'course' });
+                    this.$router.push({ name: 'list' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
@@ -42,7 +42,7 @@ export default {
         },
 
         cancel() {
-            this.$router.push({ name: 'course' });
+            this.$router.push({ name: 'list' });
         },
     },
 };
