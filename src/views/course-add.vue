@@ -5,8 +5,21 @@
         <h4>{{ message }}</h4>
 
         <form @submit.prevent="addCourse">
-            Name:
+            Dept:
+            <input v-model="course.dept" type="text" id="id" />
+            <br />Number:
+            <input v-model="course.number" type="text" />
+            <br />Name:
             <input v-model="course.name" type="text" id="id" />
+
+            <br />Description:
+            <input v-model="course.description" type="text" />
+            <br />Level:
+            <input v-model="course.level" type="text" />
+            <br />Hours:
+            <input v-model="course.hours" type="text" />
+            <br />
+            <br />
             <input type="submit" name="submit" value="Save" />
             <button name="cancel" v-on:click.prevent="cancel()">Cancel</button>
         </form>
@@ -14,7 +27,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import CourseServices from '@/services/CourseServices.js';
+
 export default {
     data() {
         return {
@@ -25,24 +39,16 @@ export default {
 
     methods: {
         addCourse() {
-            axios
-                .post('http://localhost/api/courses', this.course, {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        crossDomain: true,
-                    },
-                })
+            CourseServices.addCourse(this.course)
                 .then(() => {
-                    this.$router.push({ name: 'course' });
+                    this.$router.push({ name: 'list' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'course' });
+            this.$router.push({ name: 'list' });
         },
     },
 };

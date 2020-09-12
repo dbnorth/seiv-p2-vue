@@ -1,18 +1,25 @@
 <template>
     <div>
-        <H1>Course Edit</H1>
+        <h1>Course Edit</h1>
         <h4>{{ course.name }}</h4>
         <h4>{{ message }}</h4>
 
-        <form @submit.prevent="updateList">
-            Name:
+        <form @submit.prevent="updateCourse">
+            Number:
+            <input v-model="course.number" type="text" />
+            <br />Name:
             <input v-model="course.name" type="text" />
+            <br />Description:
+            <input v-model="course.description" type="text" />
+            <br />Level:
+            <input v-model="course.level" type="text" />
+            <br />Hours:
+            <input v-model="course.hours" type="text" />
+            <br />
+            <br />
             <input type="submit" name="submit" value="Save" />
             <button name="cancel" v-on:click.prevent="cancel()">Cancel</button>
         </form>
-        <br />
-        <button name="add" v-on:click.prevent="addCourseForm()">Add</button>
-        <br />
     </div>
 </template>
 
@@ -25,15 +32,14 @@ export default {
 
     data() {
         return {
-            list: {},
-            items: {},
+            course: {},
             message: 'Make changes to the list',
         };
     },
     created() {
         CourseServices.getCourse(this.id)
             .then(response => {
-                this.list = response.data.course;
+                this.course = response.data;
             })
             .catch(error => {
                 this.message = error.response.data.message;
@@ -42,30 +48,20 @@ export default {
 
     methods: {
         updateCourse() {
-            CourseServices.updateCourse(this.updateCourse)
-                .then(() => {})
+            CourseServices.updateCourse(this.course)
+                .then(() => {
+                    this.$router.push({ name: 'list' });
+                })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'course' });
+            this.$router.push({ name: 'list' });
         },
     },
 };
 </script>
 
 <style>
-table,
-th,
-td {
-    border: 1px solid black;
-    text-align: left;
-}
-table.center {
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
-    border-collapse: collapse;
-}
 </style>

@@ -2,7 +2,15 @@
     <div>
         <H1>Course List</H1>
         <h4>{{ message }}</h4>
-        <CourseDisplay v-for="course in courses" :key="course.id" :course="course" />
+
+        <p>
+            Search:
+            <input type="text" v-model="dept" />
+        </p>
+        <button v-on:click="search()">Search</button>
+        <table align="center">
+            <CourseDisplay v-for="course in courses" :key="course.id" :course="course" />
+        </table>
     </div>
 </template>
 
@@ -15,6 +23,7 @@ export default {
     },
     data() {
         return {
+            dept: '',
             courses: [],
             message: 'Click on list to edit',
         };
@@ -29,7 +38,23 @@ export default {
                 this.message = error.response.data.message;
             });
     },
+    methods: {
+        search() {
+            CourseServices.getCoursesForDept(this.dept)
+                .then(response => {
+                    this.courses = response.data;
+                    console.log(this.courses);
+                })
+                .catch(error => {
+                    this.message = error.response.data.message;
+                });
+        },
+    },
 };
 </script>
 
-<style></style>
+<style>
+table {
+    border-collapse: collapse;
+}
+</style>
