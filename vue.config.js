@@ -1,8 +1,9 @@
-console.log(process.env.NODE_ENV);
 module.exports = {
-  devServer: {
-    host: "localhost"
+  "devServer": {
+    "host": "localhost"
   },
-
-  publicPath: process.env.NODE_ENV === "development" ? "/" : "/courses/"
-};
+  "publicPath": "/courses/",
+  "transpileDependencies": [
+    "vuetify"
+  ]
+}
