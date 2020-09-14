@@ -3,7 +3,6 @@
         <v-row>
             <v-col>
                 <h1>Course Edit</h1>
-                <h4>{{ course.name }}</h4>
                 <h4>{{ message }}</h4>
                 <v-form>
                     <v-text-field label="Dept" v-model="course.dept" />
@@ -15,9 +14,11 @@
                     />
                     <v-text-field label="Hours" v-model="course.hours" />
                     <v-text-field label="Level" v-model="course.level" />
-                    <v-btn @click="saveCourse()">Save</v-btn>
-                    <v-btn @click="deleteCourse()">Delete</v-btn>
-                    <v-btn @click="cancel()">Cancel</v-btn>
+                    <v-btn color="success" @click="saveCourse()">Save</v-btn>
+                    <v-btn color="warning" @click="deleteCourse()"
+                        >Delete</v-btn
+                    >
+                    <v-btn color="info" @click="cancel()">Cancel</v-btn>
                 </v-form>
             </v-col>
         </v-row>
