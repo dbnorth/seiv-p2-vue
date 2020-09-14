@@ -14,8 +14,18 @@
                     />
                     <v-text-field label="Hours" v-model="course.hours" />
                     <v-text-field label="Level" v-model="course.level" />
-                    <v-btn color="success" @click="addCourse()">Add</v-btn>
-                    <v-btn color="info" @click="cancel()">Cancel</v-btn>
+                    <v-row justify="center">
+                        <v-col col="3"> </v-col>
+                        <v-col col="2">
+                            <v-btn color="success" @click="addCourse()"
+                                >Add</v-btn
+                            >
+                        </v-col>
+                        <v-col col="2">
+                            <v-btn color="info" @click="cancel()">Cancel</v-btn>
+                        </v-col>
+                        <v-col col="3"> </v-col>
+                    </v-row>
                 </v-form>
             </v-col>
         </v-row>
