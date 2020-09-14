@@ -9,7 +9,7 @@
                     <v-text-field label="Dept" v-model="course.dept" />
                     <v-text-field label="Number" v-model="course.number" />
                     <v-text-field label="Name" v-model="course.name" />
-                    <v-text-field
+                    <v-textarea
                         label="Description"
                         v-model="course.description"
                     />

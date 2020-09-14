@@ -3,13 +3,12 @@
         <v-row>
             <v-col>
                 <H1>Course Add</H1>
-                <h4>{{ course.name }}</h4>
                 <h4>{{ message }}</h4>
                 <v-form>
                     <v-text-field label="Dept" v-model="course.dept" />
                     <v-text-field label="Number" v-model="course.number" />
                     <v-text-field label="Name" v-model="course.name" />
-                    <v-text-field
+                    <v-textarea
                         label="Description"
                         v-model="course.description"
                     />
