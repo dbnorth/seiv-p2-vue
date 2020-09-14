@@ -2,7 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 import List from "./views/course-list.vue";
 import Edit from "./views/course-edit.vue";
-import Delete from "./views/course-delete.vue";
 import Add from "./views/course-add.vue";
 
 
@@ -28,13 +27,8 @@ export default new Router({
       path: "/add",
       name: "add",
       component: Add
-    },
-    {
-      path: "/delete/:id",
-      name: "delete",
-      component: Delete,
-      props: true
     }
+
 
     /*
     {
