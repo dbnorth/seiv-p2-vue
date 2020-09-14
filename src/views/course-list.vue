@@ -6,7 +6,7 @@
                 <v-form>
                     <v-text-field label="Enter Department" v-model="dept" />
                 </v-form>
-                <v-btn v-on:click="search()">Search</v-btn>
+                <v-btn color="success" v-on:click="search()">Search</v-btn>
 
                 <v-data-table
                     :headers="headers"
