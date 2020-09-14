@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             course: {},
-            message: 'Make changes to the course and save',
+            message: 'Make changes to the course and Save',
         };
     },
     created() {

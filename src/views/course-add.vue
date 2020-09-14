@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             course: {},
-            message: 'Enter data and click Save',
+            message: 'Enter data and click Add',
         };
     },
 
