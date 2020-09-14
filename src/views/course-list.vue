@@ -1,21 +1,24 @@
 <template>
-    <div>
-        <H1>Course List</H1>
+    <v-container>
+        <v-row>
+            <v-col>
+                <H1>Course List</H1>
+                <v-form>
+                    <v-text-field label="Enter Department" v-model="dept" />
+                </v-form>
+                <v-btn v-on:click="search()">Search</v-btn>
 
-        <v-form>
-            <v-text-field label="Enter Department" v-model="dept" />
-        </v-form>
-        <v-btn v-on:click="search()">Search</v-btn>
-
-        <v-data-table
-            :headers="headers"
-            :items="courses"
-            :items-per-page="25"
-            class="elevation - 1"
-            @click:row="selectRow"
-        >
-        </v-data-table>
-    </div>
+                <v-data-table
+                    :headers="headers"
+                    :items="courses"
+                    :items-per-page="25"
+                    class="elevation - 1"
+                    @click:row="selectRow"
+                >
+                </v-data-table>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>

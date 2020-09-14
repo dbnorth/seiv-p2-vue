@@ -1,20 +1,27 @@
 <template>
-    <div>
-        <h1>Course Edit</h1>
-        <h4>{{ course.name }}</h4>
-        <h4>{{ message }}</h4>
-        <v-form>
-            <v-text-field label="Dept" v-model="course.dept" />
-            <v-text-field label="Number" v-model="course.number" />
-            <v-text-field label="Name" v-model="course.name" />
-            <v-text-field label="Description" v-model="course.description" />
-            <v-text-field label="Hours" v-model="course.hours" />
-            <v-text-field label="Level" v-model="course.level" />
-            <v-btn @click="saveCourse()">Save</v-btn>
-            <v-btn @click="deleteCourse()">Delete</v-btn>
-            <v-btn @click="cancel()">Cancel</v-btn>
-        </v-form>
-    </div>
+    <v-container>
+        <v-row>
+            <v-col>
+                <h1>Course Edit</h1>
+                <h4>{{ course.name }}</h4>
+                <h4>{{ message }}</h4>
+                <v-form>
+                    <v-text-field label="Dept" v-model="course.dept" />
+                    <v-text-field label="Number" v-model="course.number" />
+                    <v-text-field label="Name" v-model="course.name" />
+                    <v-text-field
+                        label="Description"
+                        v-model="course.description"
+                    />
+                    <v-text-field label="Hours" v-model="course.hours" />
+                    <v-text-field label="Level" v-model="course.level" />
+                    <v-btn @click="saveCourse()">Save</v-btn>
+                    <v-btn @click="deleteCourse()">Delete</v-btn>
+                    <v-btn @click="cancel()">Cancel</v-btn>
+                </v-form>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
