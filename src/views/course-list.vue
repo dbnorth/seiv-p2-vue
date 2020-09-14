@@ -1,31 +1,50 @@
 <template>
-    <div>
-        <H1>Course List</H1>
-        <h4>{{ message }}</h4>
+    <v-container>
+        <v-row>
+            <v-col>
+                <H1>Course List</H1>
+                <v-form>
+                    <v-text-field label="Enter Department" v-model="dept" />
+                </v-form>
+                <v-btn v-on:click="search()">Search</v-btn>
 
-        <p>
-            Search:
-            <input type="text" v-model="dept" />
-        </p>
-        <button v-on:click="search()">Search</button>
-        <table align="center">
-            <CourseDisplay v-for="course in courses" :key="course.id" :course="course" />
-        </table>
-    </div>
+                <v-data-table
+                    :headers="headers"
+                    :items="courses"
+                    :items-per-page="25"
+                    class="elevation - 1"
+                    @click:row="selectRow"
+                >
+                </v-data-table>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
-import CourseDisplay from '@/components/CourseDisplay.vue';
 import CourseServices from '@/services/CourseServices.js';
 export default {
-    components: {
-        CourseDisplay,
-    },
+    components: {},
     data() {
         return {
             dept: '',
             courses: [],
-            message: 'Click on list to edit',
+            headers: [
+                {
+                    text: 'Course Number',
+                    align: 'left',
+                    sortable: true,
+                    value: 'number',
+                },
+                {
+                    text: 'Course Name',
+                    value: 'name',
+                    align: 'left',
+                    sortable: false,
+                },
+            ],
+            message:
+                'Enter Dept in search field to display courses for department',
         };
     },
     created() {
@@ -49,12 +68,12 @@ export default {
                     this.message = error.response.data.message;
                 });
         },
+        selectRow(event) {
+            let id = event.id;
+            this.$router.push({ name: 'edit', params: { id: id } });
+        },
     },
 };
 </script>
 
-<style>
-table {
-    border-collapse: collapse;
-}
-</style>
+<style></style>

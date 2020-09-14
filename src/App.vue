@@ -1,31 +1,24 @@
 <template>
-    <div id="app">
-        <div id="nav">
-            <router-link to="/">List</router-link>|
-            <router-link to="/add">Add</router-link>
-        </div>
-        <router-view />
-    </div>
+    <v-app>
+        <v-app-bar app color="primary" dark>
+            <v-toolbar-title>Courses</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn to="/" color="white" text rounded>List</v-btn>
+            <v-btn to="/add" color="white" text rounded>Add</v-btn>
+        </v-app-bar>
+
+        <v-main>
+            <router-view />
+        </v-main>
+    </v-app>
 </template>
 
-<style>
-#app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
-#nav {
-    padding: 30px;
-}
+<script>
+export default {
+    name: 'App',
 
-#nav a {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-    color: #42b983;
-}
-</style>
+    data: () => ({
+        //
+    }),
+};
+</script>
