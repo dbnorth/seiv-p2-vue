@@ -48,7 +48,7 @@ export default new Router({
       props: true
     },
     {
-      path: "student-add",
+      path: "/student-add",
       name: "studentadd",
       component: StudentAdd
     }

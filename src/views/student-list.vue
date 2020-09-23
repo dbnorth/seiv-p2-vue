@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Student List</H1>
+                <v-btn to="/student-add" color="black" text rounded>Add</v-btn>
 
                 <v-data-table
                     :headers="headers"
@@ -29,7 +30,7 @@ export default {
                     text: 'Id',
                     align: 'left',
                     sortable: true,
-                    value: 'studnetID',
+                    value: 'idNumber',
                 },
                 {
                     text: 'First Name',
@@ -44,14 +45,13 @@ export default {
                     sortable: false,
                 },
             ],
-            message:
-                'Enter Dept in search field to display courses for department',
+            message: 'Enter click on student to edit',
         };
     },
     created() {
         StudentServices.getStudents()
             .then(response => {
-                this.courses = response.data;
+                this.students = response.data;
                 console.log(this.students);
             })
             .catch(error => {

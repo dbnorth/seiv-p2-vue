@@ -47,14 +47,14 @@ export default {
         addCourse() {
             CourseServices.addCourse(this.course)
                 .then(() => {
-                    this.$router.push({ name: 'list' });
+                    this.$router.push({ name: 'courselist' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'list' });
+            this.$router.push({ name: 'courselist' });
         },
     },
 };

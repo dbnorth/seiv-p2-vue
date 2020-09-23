@@ -64,7 +64,7 @@ export default {
         saveCourse() {
             CourseServices.updateCourse(this.course)
                 .then(() => {
-                    this.$router.push({ name: 'list' });
+                    this.$router.push({ name: 'courselist' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
@@ -73,14 +73,14 @@ export default {
         deleteCourse() {
             CourseServices.deleteCourse(this.course.id)
                 .then(() => {
-                    this.$router.push({ name: 'list' });
+                    this.$router.push({ name: 'courselist' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'list' });
+            this.$router.push({ name: 'courselist' });
         },
     },
 };
