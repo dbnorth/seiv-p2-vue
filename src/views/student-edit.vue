@@ -2,27 +2,32 @@
     <v-container>
         <v-row>
             <v-col>
-                <h1>Course Edit</h1>
+                <h1>Student Edit</h1>
                 <h4>{{ message }}</h4>
                 <v-form>
-                    <v-text-field label="Dept" v-model="course.dept" />
-                    <v-text-field label="Number" v-model="course.number" />
-                    <v-text-field label="Name" v-model="course.name" />
-                    <v-textarea
-                        label="Description"
-                        v-model="course.description"
+                    <v-text-field
+                        label="Id Number"
+                        v-model="student.idNumber"
                     />
-                    <v-text-field label="Hours" v-model="course.hours" />
-                    <v-text-field label="Level" v-model="course.level" />
+                    <v-text-field
+                        label="First Name"
+                        v-model="student.firstName"
+                    />
+                    <v-text-field
+                        label="Last Name"
+                        v-model="student.lastName"
+                    />
+                    <v-text-field label="Email" v-model="student.email" />
+                    <v-text-field label="Major" v-model="student.major" />
                     <v-row justify="center">
                         <v-col col="2"> </v-col>
                         <v-col col="2">
-                            <v-btn color="success" @click="saveCourse()"
+                            <v-btn color="success" @click="saveStudent()"
                                 >Save</v-btn
                             >
                         </v-col>
                         <v-col col="2">
-                            <v-btn color="warning" @click="deleteCourse()"
+                            <v-btn color="warning" @click="deleteStudent()"
                                 >Delete</v-btn
                             >
                         </v-col>
@@ -38,7 +43,7 @@
 </template>
 
 <script>
-import CourseServices from '@/services/CourseServices.js';
+import StudentServices from '@/services/StudentServices.js';
 
 export default {
     components: {},
@@ -46,14 +51,14 @@ export default {
 
     data() {
         return {
-            course: {},
-            message: 'Make changes to the course and Save',
+            student: {},
+            message: 'Make changes to the student and Save',
         };
     },
     created() {
-        CourseServices.getCourse(this.id)
+        StudentServices.getStudent(this.id)
             .then(response => {
-                this.course = response.data;
+                this.student = response.data;
             })
             .catch(error => {
                 this.message = error.response.data.message;
@@ -61,26 +66,26 @@ export default {
     },
 
     methods: {
-        saveCourse() {
-            CourseServices.updateCourse(this.course)
+        saveStudent() {
+            StudentServices.updateStudent(this.student)
                 .then(() => {
-                    this.$router.push({ name: 'courselist' });
+                    this.$router.push({ name: 'studentlist' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
-        deleteCourse() {
-            CourseServices.deleteCourse(this.course.id)
+        deleteStudent() {
+            StudentServices.deleteStudent(this.student.id)
                 .then(() => {
-                    this.$router.push({ name: 'courselist' });
+                    this.$router.push({ name: 'studentlist' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'courselist' });
+            this.$router.push({ name: 'studentlist' });
         },
     },
 };
