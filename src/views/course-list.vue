@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Course List</H1>
+                <v-btn to="/course-add" color="white" text rounded>Add</v-btn>
                 <v-form>
                     <v-text-field label="Enter Department" v-model="dept" />
                 </v-form>
@@ -70,7 +71,7 @@ export default {
         },
         selectRow(event) {
             let id = event.id;
-            this.$router.push({ name: 'edit', params: { id: id } });
+            this.$router.push({ name: 'course-edit', params: { id: id } });
         },
     },
 };
