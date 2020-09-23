@@ -8,6 +8,9 @@
                 >Students</v-btn
             >
             <v-btn to="/course-list" color="white" text rounded>Courses</v-btn>
+            <v-btn to="/semester-list" color="white" text rounded
+                >Semesters</v-btn
+            >
         </v-app-bar>
         <v-main>
             <router-view />

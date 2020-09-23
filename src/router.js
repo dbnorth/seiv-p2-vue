@@ -6,6 +6,9 @@ import CourseAdd from "./views/course-add.vue";
 import StudentList from "./views/student-list.vue";
 import StudentEdit from "./views/student-edit.vue";
 import StudentAdd from "./views/student-add.vue";
+import SemesterList from "./views/semester-list.vue";
+import SemesterEdit from "./views/semester-edit.vue";
+import SemesterAdd from "./views/semester-add.vue";
 import Main from "./views/courseplan-main.vue";
 
 Vue.use(Router);
@@ -51,6 +54,22 @@ export default new Router({
       path: "/student-add",
       name: "studentadd",
       component: StudentAdd
+    },
+    {
+      path: "/semester-list",
+      name: "semesterlist",
+      component: SemesterList
+    },
+    {
+      path: "/semester-edit/:id",
+      name: "semesteredit",
+      component: SemesterEdit,
+      props: true
+    },
+    {
+      path: "/semester-add",
+      name: "semesteradd",
+      component: SemesterAdd
     }
 
 
