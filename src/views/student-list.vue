@@ -12,6 +12,13 @@
                     class="elevation - 1"
                     @click:row="selectRow"
                 >
+                <template v-slot:item.actions="{ student }">
+                  <v-icon
+                    small
+                    class="mr-2"
+                    @click="displayStudentCourse(student)"
+                  />
+                  </template>
                 </v-data-table>
             </v-col>
         </v-row>
@@ -44,6 +51,12 @@ export default {
                     align: 'left',
                     sortable: false,
                 },
+                                {
+                    text: 'Actions',
+                    value: 'actions',
+                    align: 'left',
+                    sortable: false,
+                },
             ],
             message: 'Enter click on student to edit',
         };
@@ -63,6 +76,12 @@ export default {
             let id = event.id;
             this.$router.push({ name: 'studentedit', params: { id: id } });
         },
+        displayStudentCourse(student) {
+            let id = student.id;
+            this.$router.push({ name: 'studentcourselist', params: { id: id } });
+  
+
+        }
     },
 };
 </script>

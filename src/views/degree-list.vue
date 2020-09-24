@@ -56,7 +56,7 @@ export default {
         selectRow(event) {
             let id = event.id;
             this.$router.push({ name: 'degreeedit', params: { id: id } });
-        },
+        }
     },
 };
 </script>

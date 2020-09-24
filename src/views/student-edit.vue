@@ -18,7 +18,13 @@
                         v-model="student.lastName"
                     />
                     <v-text-field label="Email" v-model="student.email" />
-                    <v-text-field label="Major" v-model="student.major" />
+
+                    <v-select :items="degrees"
+                      label="Major"
+                      item-text ="description"
+                      item-value= "id" 
+                      v-model="student.degreeId" />
+                   
                     <v-row justify="center">
                         <v-col col="2"> </v-col>
                         <v-col col="2">
@@ -44,6 +50,7 @@
 
 <script>
 import StudentServices from '@/services/StudentServices.js';
+import DegreeServices from '@/services/DegreeServices.js';
 
 export default {
     components: {},
@@ -52,6 +59,7 @@ export default {
     data() {
         return {
             student: {},
+            degrees:{},
             message: 'Make changes to the student and Save',
         };
     },
@@ -59,6 +67,13 @@ export default {
         StudentServices.getStudent(this.id)
             .then(response => {
                 this.student = response.data;
+            })
+            .catch(error => {
+                this.message = error.response.data.message;
+            });
+        DegreeServices.getDegrees()
+            .then(response => {
+                this.degrees = response.data;
             })
             .catch(error => {
                 this.message = error.response.data.message;
