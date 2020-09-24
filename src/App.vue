@@ -11,6 +11,7 @@
             <v-btn to="/semester-list" color="white" text rounded
                 >Semesters</v-btn
             >
+            <v-btn to="/degree-list" color="white" text rounded>Degrees</v-btn>
         </v-app-bar>
         <v-main>
             <router-view />
