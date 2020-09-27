@@ -5,21 +5,14 @@
                 <H1>Student List</H1>
                 <v-btn to="/student-add" color="black" text rounded>Add</v-btn>
 
-                <v-data-table
+              <v-data-table
                     :headers="headers"
                     :items="students"
                     :items-per-page="10"
-                    class="elevation - 1"
                     @click:row="selectRow"
-                >
-                <template v-slot:item.actions="{ student }">
-                  <v-icon
-                    small
-                    class="mr-2"
-                    @click="displayStudentCourse(student)"
-                  />
-                  </template>
-                </v-data-table>
+              >
+                
+              </v-data-table>
             </v-col>
         </v-row>
     </v-container>
@@ -51,14 +44,8 @@ export default {
                     align: 'left',
                     sortable: false,
                 },
-                                {
-                    text: 'Actions',
-                    value: 'actions',
-                    align: 'left',
-                    sortable: false,
-                },
             ],
-            message: 'Enter click on student to edit',
+            message: 'Enter click on student to view course plan',
         };
     },
     created() {
@@ -74,13 +61,7 @@ export default {
     methods: {
         selectRow(event) {
             let id = event.id;
-            this.$router.push({ name: 'studentedit', params: { id: id } });
-        },
-        displayStudentCourse(student) {
-            let id = student.id;
             this.$router.push({ name: 'studentcourselist', params: { id: id } });
-  
-
         }
     },
 };
