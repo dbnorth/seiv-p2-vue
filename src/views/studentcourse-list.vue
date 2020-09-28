@@ -66,8 +66,11 @@ export default {
         StudentCourseServices.getStudentCoursesForStudent(this.id) 
             .then(response => {
                 this.studentCourses = response.data;
-                
-            })
+                this.studentCourses.sort(function (a,b) {
+                  if (a.semester.startDate < b.semester.startDate) return -1;  else
+                  if (a.semester.startDate > b.semester.startDate) return 1; else
+                  return 0 });
+            })        
             .catch(error => {
                 this.message = error.response.data.message;
             });
