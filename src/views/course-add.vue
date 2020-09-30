@@ -2,7 +2,7 @@
     <v-container>
         <v-row>
             <v-col>
-                <H1>Course Add</H1>
+                <H1>Course xxx Add</H1>
                 <h4>{{ message }}</h4>
                 <v-form>
                     <v-text-field label="Dept" v-model="course.dept" />
