@@ -18,11 +18,17 @@
                         v-model="student.lastName"
                     />
                     <v-text-field label="Email" v-model="student.email" />
+                    <v-text-field label="Graduation Date" v-model="student.gradDate" />
                     <v-select :items="degrees"
                       label="Major"
                       item-text ="description"
                       item-value= "id" 
                       v-model="student.degreeId" />
+                    <v-select :items="advisors"
+                      label="Advisor"
+                      item-text ="lastName"
+                      item-value= "id" 
+                      v-model="student.advisorId" />
                     <v-row justify="center">
                         <v-col col="3"> </v-col>
                         <v-col col="2">
@@ -44,11 +50,14 @@
 <script>
 import StudentServices from '@/services/StudentServices.js';
 import DegreeServices from '@/services/DegreeServices.js';
+import AdvisorServices from '@/services/AdvisorServices.js';
+
 export default {
     data() {
         return {
             student: {},
-            degrees : {},
+            degrees : [],
+            advisors : [],
             message: 'Enter data and click Add',
         };
     },
@@ -57,6 +66,13 @@ export default {
         DegreeServices.getDegrees()
             .then(response => {
                 this.degrees = response.data;
+            })
+            .catch(error => {
+                this.message = error.response.data.message;
+            });
+        AdvisorServices.getAdvisors()
+            .then(response => {
+                this.advisors = response.data;
             })
             .catch(error => {
                 this.message = error.response.data.message;
