@@ -2,22 +2,26 @@
     <v-container>
         <v-row>
             <v-col>
-                <H1>Course Add</H1>
+                <H1>Advisor Add</H1>
                 <h4>{{ message }}</h4>
                 <v-form>
-                    <v-text-field label="Dept" v-model="course.dept" />
-                    <v-text-field label="Number" v-model="course.number" />
-                    <v-text-field label="Name" v-model="course.name" />
-                    <v-textarea
-                        label="Description"
-                        v-model="course.description"
+
+                    <v-text-field
+                        label="First Name"
+                        v-model="advisor.firstName"
                     />
-                    <v-text-field label="Hours" v-model="course.hours" />
-                    <v-text-field label="Level" v-model="course.level" />
+                    <v-text-field
+                        label="Last Name"
+                        v-model="advisor.lastName"
+                    />
+                    <v-text-field label="Email" v-model="advisor.email" />
+
+                    <v-text-field label="Department" v-model="advisor.dept" />
+                    
                     <v-row justify="center">
                         <v-col col="3"> </v-col>
                         <v-col col="2">
-                            <v-btn color="success" @click="addCourse()"
+                            <v-btn color="success" @click="addAdvisor()"
                                 >Add</v-btn
                             >
                         </v-col>
@@ -33,28 +37,32 @@
 </template>
 
 <script>
-import CourseServices from '@/services/CourseServices.js';
+import AdvisorServices from '@/services/AdvisorServices.js';
+
 
 export default {
     data() {
         return {
-            course: {},
+            advisor: {},
             message: 'Enter data and click Add',
         };
     },
+    created() {
+
+    },
 
     methods: {
-        addCourse() {
-            CourseServices.addCourse(this.course)
+        addAdvisor() {
+            AdvisorServices.addAdvisor(this.advisor)
                 .then(() => {
-                    this.$router.push({ name: 'courselist' });
+                    this.$router.push({ name: 'advisorlist' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'courselist' });
+            this.$router.push({ name: 'advisorlist' });
         },
     },
 };

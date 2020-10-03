@@ -2,22 +2,15 @@
     <v-container>
         <v-row>
             <v-col>
-                <H1>Course Add</H1>
+                <H1>Degree Add</H1>
                 <h4>{{ message }}</h4>
                 <v-form>
-                    <v-text-field label="Dept" v-model="course.dept" />
-                    <v-text-field label="Number" v-model="course.number" />
-                    <v-text-field label="Name" v-model="course.name" />
-                    <v-textarea
-                        label="Description"
-                        v-model="course.description"
-                    />
-                    <v-text-field label="Hours" v-model="course.hours" />
-                    <v-text-field label="Level" v-model="course.level" />
+                    <v-text-field label="Dept" v-model="degree.dept" />
+                    <v-text-field label="Degree" v-model="degree.description" />
                     <v-row justify="center">
                         <v-col col="3"> </v-col>
                         <v-col col="2">
-                            <v-btn color="success" @click="addCourse()"
+                            <v-btn color="success" @click="addDegree()"
                                 >Add</v-btn
                             >
                         </v-col>
@@ -33,28 +26,28 @@
 </template>
 
 <script>
-import CourseServices from '@/services/CourseServices.js';
+import DegreeServices from '@/services/DegreeServices.js';
 
 export default {
     data() {
         return {
-            course: {},
+            degree: {},
             message: 'Enter data and click Add',
         };
     },
 
     methods: {
-        addCourse() {
-            CourseServices.addCourse(this.course)
+        addDegree() {
+            DegreeServices.addDegree(this.degree)
                 .then(() => {
-                    this.$router.push({ name: 'courselist' });
+                    this.$router.push({ name: 'degreelist' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'courselist' });
+            this.$router.push({ name: 'degreelist' });
         },
     },
 };
