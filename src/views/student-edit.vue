@@ -18,6 +18,12 @@
                         v-model="student.lastName"
                     />
                     <v-text-field label="Email" v-model="student.email" />
+                    <v-text-field
+                        v-model="student.gradDate"
+                        label="Graduation Date"
+                        hint="MM/DD/YYYY format"
+                        persistent-hint
+                      ></v-text-field>
 
                     <v-select :items="degrees"
                       label="Major"
@@ -26,7 +32,7 @@
                       v-model="student.degreeId" />
                     <v-select :items="advisors"
                       label="Advisor"
-                      item-text ="lastName"
+                      item-text ="fullName"
                       item-value= "id" 
                       v-model="student.advisorId" />
                     <v-row justify="center">
@@ -64,8 +70,8 @@ export default {
     data() {
         return {
             student: {},
-            degrees:{},
-            advisor: {},
+            degrees:[],
+            advisors: [],
             message: 'Make changes to the student and Save',
         };
     },
@@ -88,6 +94,10 @@ export default {
         AdvisorServices.getAdvisors()
             .then(response => {
                 this.advisors = response.data;
+                this.advisors.forEach(function (advisor) {
+                  advisor.fullName = advisor.firstName+" "+advisor.lastName;
+                });
+                
             })
             .catch(error => {
                 this.message = error.response.data.message;

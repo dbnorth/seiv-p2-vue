@@ -15,13 +15,15 @@
                     
                     <v-select :items="courses"
                       label="Course"
-                      item-text ="number"
+                      item-text ="fullCourse"
                       item-value= "id" 
                       v-model="studentCourse.courseId" />
 
-                      <v-text-field
-                        label="grade"
-                        v-model="studentCourse.grade"/>
+                    <v-select :items="grades"
+                      label="Grade"
+                      item-text ="grade"
+                      item-value= "grade" 
+                      v-model="studentCourse.grade" />
                    
                     <v-row justify="center">
                         <v-col col="2"> </v-col>
@@ -62,6 +64,7 @@ export default {
             studentCourse: {},
             semesters:[],
             courses:[],
+            grades:[{grade:"A"},{grade:"B"},{grade:"C"},{grade:"D"},{grade:"F"},{grade:"TE"},{grade:"IP"},{grade:"EN"},{grade:"PL"}],
             message: 'Make changes to the studentCourse and Save',
         };
     },
@@ -92,6 +95,9 @@ export default {
         CourseServices.getCourses()
             .then(response => {
                 this.courses = response.data;
+                this.courses.forEach(function (course) {
+                  course.fullCourse = course.number+" "+course.name;
+                });
             })
             .catch(error => {
                 this.message = error.response.data.message;

@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row>
-            <v-col>
+            <v-col >
                 <H1>Student Add</H1>
                 <h4>{{ message }}</h4>
                 <v-form>
@@ -18,7 +18,15 @@
                         v-model="student.lastName"
                     />
                     <v-text-field label="Email" v-model="student.email" />
-                    <v-text-field label="Graduation Date" v-model="student.gradDate" />
+                    <v-text-field
+                        v-model="student.gradDate"
+                        label="Graduation Date"
+                        hint="MM/DD/YYYY format"
+                        persistent-hint
+                     
+
+                      ></v-text-field>
+
                     <v-select :items="degrees"
                       label="Major"
                       item-text ="description"
@@ -73,6 +81,9 @@ export default {
         AdvisorServices.getAdvisors()
             .then(response => {
                 this.advisors = response.data;
+                this.advisors.forEach(function (advisor) {
+                  advisor.fullName = advisor.firstName+" "+advisor.lastName;
+                });
             })
             .catch(error => {
                 this.message = error.response.data.message;
