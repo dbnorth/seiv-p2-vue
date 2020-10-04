@@ -16,6 +16,7 @@ import StudentCourseList from "./views/studentcourse-list.vue";
 import StudentCourseEdit from "./views/studentcourse-edit.vue";
 import StudentCourseAdd from "./views/studentcourse-add.vue";
 import Main from "./views/courseplan-main.vue";
+import Login from "./views/login.vue";
 
 Vue.use(Router);
 
@@ -112,7 +113,13 @@ export default new Router({
       path: "/degree-add",
       name: "degreeadd",
       component: DegreeAdd
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login
     }
+
 
 
     /*
