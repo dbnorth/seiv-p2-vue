@@ -121,25 +121,23 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login
-    }
+    },
+    {
     path: "/advisor-list",
     name: "advisorlist",
     component: AdvisorList
-  },
-  {
-    path: "/advisor-edit/:id",
-    name: "advisoredit",
-    component: AdvisorEdit,
-    props: true
-  },
-  {
-    path: "/advisor-add",
-    name: "advisoradd",
-    component: AdvisorAdd
-  }
-
-
-
+    },
+    {
+      path: "/advisor-edit/:id",
+      name: "advisoredit",
+      component: AdvisorEdit,
+      props: true
+    },
+    {
+      path: "/advisor-add",
+      name: "advisoradd",
+      component: AdvisorAdd
+    }
     /*
     {
       path: '*',

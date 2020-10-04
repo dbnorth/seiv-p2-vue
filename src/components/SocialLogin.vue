@@ -10,6 +10,7 @@
 
 <script>
 import AuthServices from '@/services/AuthServices.js';
+import { setStore } from '@/config/utils';
 export default {
   name: 'login_signup_social',
   methods: {
@@ -30,11 +31,12 @@ export default {
           console.log("userInfo",userInfo);
           AuthServices.login(userInfo)
             .then(response => {
-                    let token = response.data.token;
-                    console.log("Returned Token:"+token);
-                    this.$store.commit('setLoginUser', token);
-                    this.$router.push({ name: '/home' });
-                })
+                var user = response.data;
+                console.log("Returned User:"+user);
+ //               this.$store.commit('setLoginUser', user);
+                setStore("user",user);
+                this.$router.push({ name: 'main' });
+              })
             .catch(error => {
                     this.message = error.response.data.message;
             });
