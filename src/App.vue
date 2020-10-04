@@ -4,6 +4,7 @@
             <v-toolbar-title>Course Plan</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn to="/" color="white" text rounded>Home</v-btn>
+                        <v-btn to="/login" color="white" text rounded>Login</v-btn>
             <v-btn to="/student-list" color="white" text rounded
                 >Students</v-btn
             >
