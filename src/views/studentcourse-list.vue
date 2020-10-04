@@ -13,6 +13,8 @@
                     class="elevation - 1"
                     @click:row="selectRow"
                 >
+
+
                 </v-data-table>
             </v-col>
         </v-row>
@@ -49,7 +51,7 @@ export default {
                     align: 'left',
                     sortable: false,
                 },
-
+              
             ],
             message: 'Enter click on course to edit'
         };
@@ -77,6 +79,7 @@ export default {
             let id = event.id;
             this.$router.push({ name: 'studentcourseedit', params: { id: id } });
         }
+        
        
     },
 };

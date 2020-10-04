@@ -7,6 +7,9 @@
             <v-btn to="/student-list" color="white" text rounded
                 >Students</v-btn
             >
+            <v-btn to="/advisor-list" color="white" text rounded
+                >Advisors</v-btn
+            >
             <v-btn to="/course-list" color="white" text rounded>Courses</v-btn>
             <v-btn to="/semester-list" color="white" text rounded
                 >Semesters</v-btn

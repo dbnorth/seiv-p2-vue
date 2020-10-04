@@ -9,8 +9,24 @@
                     :headers="headers"
                     :items="students"
                     :items-per-page="10"
-                    @click:row="selectRow"
+                
               >
+                <template v-slot:item.actions="{ item }">
+                    <v-icon
+                      small
+                      class="mr-2"
+                      @click="editStudent(item)"
+                    >
+                      mdi-pencil
+                    </v-icon>
+                                        <v-icon
+                      small
+                      class="mr-2"
+                      @click="viewStudentCourses(item)"
+                    >
+                      mdi-format-list-bulleted-type
+                    </v-icon>
+                  </template>
                 
               </v-data-table>
             </v-col>
@@ -44,6 +60,12 @@ export default {
                     align: 'left',
                     sortable: false,
                 },
+                {
+                    text: 'Action',
+                    value: 'actions',
+                    align: 'left',
+                    sortable: false,
+                },
             ],
             message: 'Enter click on student to view course plan',
         };
@@ -52,16 +74,17 @@ export default {
         StudentServices.getStudents()
             .then(response => {
                 this.students = response.data;
-                console.log(this.students);
             })
             .catch(error => {
                 this.message = error.response.data.message;
             });
     },
     methods: {
-        selectRow(event) {
-            let id = event.id;
-            this.$router.push({ name: 'studentcourselist', params: { id: id } });
+        viewStudentCourses(student) {
+            this.$router.push({ name: 'studentcourselist', params: { id: student.id } });
+        },
+        editStudent(student) {
+            this.$router.push({ name: 'studentedit', params: { id: student.id } });
         }
     },
 };
