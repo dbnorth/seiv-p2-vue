@@ -1,17 +1,14 @@
 <template>
-  <div class="main-container">
-    <form>
-      <div class="box-container">
-        <h2 class="heading">Sign In with Google</h2>
-
-   
-        <div class="login-choice"><span>or Sign In with</span></div>
-        <SocialLogin />
-      </div>
-    </form>
-    
-  </div>
+  <v-container>
+        <v-row>
+            <v-col>
+              <h2> Sign In with Google</h2>
+              <SocialLogin />
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
+
 
 <script>
 import SocialLogin from '@/components/SocialLogin'
