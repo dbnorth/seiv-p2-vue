@@ -11,6 +11,7 @@ const apiClient = axios.create({
     Accept: "application/json",
     "Content-Type": "application/json",
     "X-Requested-With": "XMLHttpRequest",
+    "Access-Control-Allow-Origin": "*",
     crossDomain: true
   }
 });

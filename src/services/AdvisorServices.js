@@ -5,6 +5,7 @@ if (process.env.NODE_ENV === "development") {
 } else {
   baseurl = "/api/";
 }
+
 const apiClient = axios.create({
   baseURL: baseurl,
   headers: {
