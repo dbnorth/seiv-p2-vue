@@ -17,6 +17,11 @@
                     <v-text-field label="Email" v-model="advisor.email" />
 
                     <v-text-field label="Department" v-model="advisor.dept" />
+                    <v-select :items="roles"
+                      label="Role"
+                      item-text ="role"
+                      item-value= "role" 
+                      v-model="advisor.roles" /> 
                    
                     <v-row justify="center">
                         <v-col col="2"> </v-col>
@@ -51,6 +56,7 @@ export default {
     data() {
         return {
             advisor: {},
+            roles : [{role:"Admin"},{role:"Advisor"},{role:"Student"}],
 
             message: 'Make changes to the advisor and Save',
         };

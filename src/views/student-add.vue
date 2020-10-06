@@ -34,7 +34,7 @@
                       v-model="student.degreeId" />
                     <v-select :items="advisors"
                       label="Advisor"
-                      item-text ="lastName"
+                      item-text ="fullName"
                       item-value= "id" 
                       v-model="student.advisorId" />
                     <v-row justify="center">
