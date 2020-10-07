@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+ <div>
       <template v-if="isAdmin">
         <v-app-bar app color="primary" dark>
             <v-toolbar-title>Course Plan (logged in as {{user.user}})</v-toolbar-title>
@@ -42,10 +42,7 @@
             <v-btn to="/login" color="white" text rounded>Login</v-btn>
           </v-app-bar>
         </template>
-        <v-main>
-            <router-view />
-        </v-main>
-    </v-app>
+</div>
 </template>
 
 <script>

@@ -43,7 +43,7 @@
                             >
                         </v-col>
                         <v-col col="2">
-                            <v-btn color="warning" @click="deleteStudent()"
+                            <v-btn v-if="isAdvisor || isAdmin" color="warning" @click="deleteStudent()"
                                 >Delete</v-btn
                             >
                         </v-col>
@@ -62,6 +62,7 @@
 import StudentServices from '@/services/StudentServices.js';
 import DegreeServices from '@/services/DegreeServices.js';
 import AdvisorServices from '@/services/AdvisorServices.js';
+import { getStore } from '@/config/utils';
 
 export default {
     components: {},
@@ -70,12 +71,18 @@ export default {
     data() {
         return {
             student: {},
+            user : {},
+            isAdmin : false,
+            isAdvisor : false,
             degrees:[],
             advisors: [],
             message: 'Make changes to the student and Save',
         };
     },
     created() {
+        this.user = getStore("user");
+        if (this.user.roles =="Admin") this.isAdmin=true;
+        if (this.user.roles =="Advisor") this.isAdvisor=true;
         StudentServices.getStudent(this.id)
             .then(response => {
                 this.student = response.data;
@@ -108,7 +115,10 @@ export default {
         saveStudent() {
             StudentServices.updateStudent(this.student)
                 .then(() => {
-                    this.$router.push({ name: 'studentlist' });
+                    if (this.isAdmin || this.isAdvisor) 
+                      this.$router.push({ name: 'studentlist' });
+                    else
+                      this.$router.push({ name: 'main' });
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
@@ -124,7 +134,10 @@ export default {
                 });
         },
         cancel() {
-            this.$router.push({ name: 'studentlist' });
+            if (this.isAdmin || this.isAdvisor) 
+                      this.$router.push({ name: 'studentlist' });
+                    else
+                      this.$router.push({ name: 'main' });
         },
     },
 };
