@@ -23,8 +23,6 @@
                         label="Graduation Date"
                         hint="MM/DD/YYYY format"
                         persistent-hint
-                     
-
                       ></v-text-field>
 
                     <v-select :items="degrees"
@@ -34,7 +32,7 @@
                       v-model="student.degreeId" />
                     <v-select :items="advisors"
                       label="Advisor"
-                      item-text ="lastName"
+                      item-text ="fullName"
                       item-value= "id" 
                       v-model="student.advisorId" />
                     <v-row justify="center">
@@ -92,6 +90,7 @@ export default {
 
     methods: {
         addStudent() {
+            this.student.roles ="Student";
             StudentServices.addStudent(this.student)
                 .then(() => {
                     this.$router.push({ name: 'studentlist' });

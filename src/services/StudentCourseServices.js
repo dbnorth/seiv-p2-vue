@@ -1,19 +1,5 @@
-import axios from "axios";
-var baseurl;
-if (process.env.NODE_ENV === "development") {
-  baseurl = "http://localhost/api/";
-} else {
-  baseurl = "/api/";
-}
-const apiClient = axios.create({
-  baseURL: baseurl,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest",
-    crossDomain: true
-  }
-});
+import {apiClient} from "./apiClient.js";
+
 export default {
   getStudentCourses() {
     return apiClient.get("studentcourses");

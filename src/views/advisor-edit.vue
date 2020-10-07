@@ -17,6 +17,12 @@
                     <v-text-field label="Email" v-model="advisor.email" />
 
                     <v-text-field label="Department" v-model="advisor.dept" />
+                    <v-text-field   v-if="!isAdmin" label="Role" v-model="advisor.roles" readonly />    
+                    <v-select v-if="isAdmin" :items="roles"
+                      label="Role"
+                      item-text ="role"
+                      item-value= "role" 
+                      v-model="advisor.roles" /> 
                    
                     <v-row justify="center">
                         <v-col col="2"> </v-col>
@@ -26,7 +32,7 @@
                             >
                         </v-col>
                         <v-col col="2">
-                            <v-btn color="warning" @click="deleteAdvisor()"
+                            <v-btn v-if="isAdmin" color="warning" @click="deleteAdvisor()"
                                 >Delete</v-btn
                             >
                         </v-col>
@@ -43,6 +49,7 @@
 
 <script>
 import AdvisorServices from '@/services/AdvisorServices.js';
+import { getStore } from '@/config/utils';
 
 export default {
     components: {},
@@ -51,11 +58,18 @@ export default {
     data() {
         return {
             advisor: {},
+            isAdmin: false,
+            user : {},
+            roles : [{role:"Admin"},{role:"Advisor"}],
 
             message: 'Make changes to the advisor and Save',
         };
     },
     created() {
+        this.user = getStore("user");
+        if (this.user.roles =="Admin") this.isAdmin=true;
+        console.log(this.user);
+        console.log(this.isAdmin);
         AdvisorServices.getAdvisor(this.id)
             .then(response => {
                 this.advisor = response.data;
@@ -78,14 +92,21 @@ export default {
         deleteAdvisor() {
             AdvisorServices.deleteAdvisor(this.advisor.id)
                 .then(() => {
-                    this.$router.push({ name: 'advisorlist' });
+                    if (this.isAdmin)
+                        this.$router.push({ name: 'advisorlist' });
+                    else 
+                      this.$router.push({ name: 'main' });
+                      
                 })
                 .catch(error => {
                     this.message = error.response.data.message;
                 });
         },
         cancel() {
-            this.$router.push({ name: 'advisorlist' });
+           if (this.isAdmin)
+                        this.$router.push({ name: 'advisorlist' });
+                    else 
+                      this.$router.push({ name: 'main' });
         },
     },
 };

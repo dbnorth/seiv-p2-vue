@@ -20,6 +20,7 @@ import AdvisorEdit from "./views/advisor-edit.vue";
 import AdvisorAdd from "./views/advisor-add.vue";
 import Main from "./views/courseplan-main.vue";
 import Login from "./views/login.vue";
+import Logout from "./views/logout.vue";
 
 Vue.use(Router);
 
@@ -121,6 +122,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: Logout
     },
     {
     path: "/advisor-list",
