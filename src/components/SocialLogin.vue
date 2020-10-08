@@ -29,7 +29,7 @@ export default {
           console.log('getAuthResponse', GoogleUser.getAuthResponse());
       
           var userInfo = {
-            email : GoogleUser.getBasicProfile().$t,
+            email : GoogleUser.getBasicProfile().Wt,
             accessToken: GoogleUser.getAuthResponse().id_token
           };
           console.log("userInfo",userInfo);
