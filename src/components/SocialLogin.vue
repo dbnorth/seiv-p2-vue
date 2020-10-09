@@ -42,6 +42,7 @@ export default {
                 this.$router.push({ name: 'main' });
               })
             .catch(error => {
+                    console.log(error);
                     this.message = error.response.data.message;
             });
 

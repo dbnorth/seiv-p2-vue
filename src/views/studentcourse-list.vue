@@ -5,17 +5,8 @@
                 <H1>Student Course List</H1>
                 <H2>{{student.firstName}} {{student.lastName}}</H2>
                 <v-btn :to="{ name:'studentcourseadd', params: { id: id }}" color="black" text rounded>Add</v-btn>
-
-                <v-data-table
-                    :headers="headers"
-                    :items="studentCourses"
-                    :items-per-page="10"
-                    class="elevation - 1"
-                    @click:row="selectRow"
-                >
-
-
-                </v-data-table>
+                <SemesterCourse :studentCourses="studentCourses" />
+               
             </v-col>
         </v-row>
     </v-container>
@@ -24,9 +15,14 @@
 <script>
 import StudentServices from '@/services/StudentServices.js';
 import StudentCourseServices from '@/services/StudentCourseServices.js';
+import SemesterCourse from '@/components/SemesterCourse';
+
 
 export default {
-    components: {},
+    name: 'semestercourse',
+    components: {
+      SemesterCourse
+    },
     props :["id"],
     data() {
         return {
@@ -51,7 +47,6 @@ export default {
                     align: 'left',
                     sortable: false,
                 },
-              
             ],
             message: 'Enter click on course to edit'
         };
@@ -73,16 +68,8 @@ export default {
             .catch(error => {
                 this.message = error.response.data.message;
             });
-    },
-    methods: {
-        selectRow(event) {
-            let id = event.id;
-            this.$router.push({ name: 'studentcourseedit', params: { id: id } });
-        }
-        
-       
-    },
-};
+    }
+}
 </script>
 
 <style></style>
