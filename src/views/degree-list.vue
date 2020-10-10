@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Degree List</H1>
+                <h3>{{message}}</h3>
                 <v-btn to="/degree-add" color="black" text rounded>Add</v-btn>
 
                 <v-data-table
