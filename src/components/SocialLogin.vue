@@ -40,7 +40,7 @@ export default {
             email : GoogleUser.getBasicProfile().Wt,
             accessToken: GoogleUser.getAuthResponse().id_token
           };
-          console.log("userInfo",userInfo);
+
           AuthServices.login(userInfo)
             .then(response => {
                 var user = response.data;

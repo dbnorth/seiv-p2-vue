@@ -2,7 +2,9 @@
     <v-container>
         <v-row>
             <v-col>
-                <H1>Student Course Plann</H1>
+                <H1>Student Course Plan</H1>
+               <h3>{{message}}</h3>
+
                 <H2>{{student.firstName}} {{student.lastName}}</H2>
                 <v-btn :to="{ name:'studentcourseadd', params: { id: id }}" color="black" text rounded>Add</v-btn>
                 <SemesterCourse v-for="semester in semesterCourses" :key="semester" :studentCourses="semester" />

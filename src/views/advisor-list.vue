@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Advisor List</H1>
+                <h3>{{message}}</h3>
                 <v-btn to="/advisor-add" color="black" text rounded>Add</v-btn>
 
               <v-data-table
@@ -40,7 +41,7 @@ export default {
                     sortable: false,
                 },
             ],
-            message: 'Enter click on advisor to edit',
+            message: 'Click on advisor to edit',
         };
     },
     created() {

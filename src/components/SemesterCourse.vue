@@ -21,15 +21,16 @@ export default {
             semester :{},
             grades : [],     
             headers: [
+
                 {
-                    text: 'Semester',
-                    align: 'left',
-                    sortable: true,
-                    value: "semester.code",
-                },
-                {
-                    text: 'Course',
+                    text: 'Number',
                     value: 'course.number',
+                    align: 'left',
+                    sortable: false,
+                },
+                                {
+                    text: 'Course',
+                    value: 'course.name',
                     align: 'left',
                     sortable: false,
                 },

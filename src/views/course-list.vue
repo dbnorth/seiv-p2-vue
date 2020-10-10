@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Course List</H1>
+                <h3>{{message}}</h3>
                 <v-btn to="/course-add" color="black" text rounded>Add</v-btn>
                 <v-form>
                     <v-text-field label="Enter Department" v-model="dept" />
