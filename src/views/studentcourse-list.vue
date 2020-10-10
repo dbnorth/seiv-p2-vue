@@ -2,10 +2,10 @@
     <v-container>
         <v-row>
             <v-col>
-                <H1>Student Course List</H1>
+                <H1>Student Course Plann</H1>
                 <H2>{{student.firstName}} {{student.lastName}}</H2>
                 <v-btn :to="{ name:'studentcourseadd', params: { id: id }}" color="black" text rounded>Add</v-btn>
-                <SemesterCourse :studentCourses="studentCourses" />
+                <SemesterCourse v-for="semester in semesterCourses" :key="semester" :studentCourses="semester" />
                
             </v-col>
         </v-row>
@@ -28,42 +28,39 @@ export default {
         return {
             student: {},
             studentCourses :[],
-            headers: [
-                {
-                    text: 'Semester',
-                    align: 'left',
-                    sortable: true,
-                    value: "semester.code",
-                },
-                {
-                    text: 'Course',
-                    value: 'course.number',
-                    align: 'left',
-                    sortable: false,
-                },
-                {
-                    text: 'Grade',
-                    value: 'grade',
-                    align: 'left',
-                    sortable: false,
-                },
-            ],
+            semesterCourses : [],
             message: 'Enter click on course to edit'
         };
     },
     created() {
         StudentServices.getStudent(this.id)
             .then(response => {
-                this.student = response.data;  
-                
+                this.student = response.data; 
+                console.log()
             })
             .catch(error => {
                 this.message = error.response.data.message;
             });
+        let semesters =[];
         StudentCourseServices.getStudentCoursesForStudent(this.id) 
             .then(response => {
-                this.studentCourses = response.data;
-                
+              this.studentCourses = response.data;
+              this.studentCourses.sort(function(a, b) {
+                  if (a.semester.startDate<b.semester.startDate) return -1;
+                  else if (a.semester.startDate<b.semester.startDate) return 1;
+                  return 0
+              }
+              );
+              console.log(this.studentCourses);
+              this.studentCourses.forEach(function (studentCourse) {
+                  if (!((semesters).includes(studentCourse.semester.code)))
+                    semesters.push(studentCourse.semester.code)
+                });
+
+              semesters.forEach(function (semester) {
+                this.semesterCourses.push(this.studentCourses.filter(studentCourse => studentCourse.semester.code==semester));
+              },this);
+
             })
             .catch(error => {
                 this.message = error.response.data.message;

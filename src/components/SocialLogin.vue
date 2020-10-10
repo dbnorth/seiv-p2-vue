@@ -1,5 +1,6 @@
 <template>
     <div>
+      <h3>{{message}}</h3>
       <v-btn
         class="ma-2"
         outlined
@@ -17,6 +18,13 @@ import AuthServices from '@/services/AuthServices.js';
 import { setStore } from '@/config/utils';
 export default {
   name: 'login_signup_social',
+  data() {
+        return {
+            
+            message: 'Click to Login with OC Credentials',
+            roles : [{role:"Admin"},{role:"Advisor"},{role:"Student"}]
+        };
+    },
   methods: {
     loginWithGoogle () {
       this.$gAuth
