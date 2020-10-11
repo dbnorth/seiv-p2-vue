@@ -7,6 +7,7 @@
                 <v-form>
                     <v-text-field label="Dept" v-model="degree.dept" />
                     <v-text-field label="Degree" v-model="degree.description" />
+                    <v-text-field label="Total Hours" v-model="degree.hours" />
                     <v-row justify="center">
                         <v-col col="2"> </v-col>
                         <v-col col="2">
