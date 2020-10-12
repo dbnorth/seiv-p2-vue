@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Student List</H1>
+                <h3>{{message}}</h3>
                 <v-btn to="/student-add" color="black" text rounded>Add</v-btn>
 
               <v-data-table
@@ -67,7 +68,7 @@ export default {
                     sortable: false,
                 },
             ],
-            message: 'Enter click on student to view course plan',
+            message: 'Click on icons view course plan',
         };
     },
     created() {

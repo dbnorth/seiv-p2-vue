@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getStore } from '@/config/utils';
 
 var baseurl = "";
 if (process.env.NODE_ENV === "development") {
@@ -17,16 +18,20 @@ export const apiClient = axios.create({
     crossDomain: true
   },
   transformRequest: (data, headers) => {
-    let token = localStorage.getItem("token");
-    let authHeader = "";
-    if (token != null && token != "") authHeader = "Bearer " + token;
-    headers.common["Authorization"] = authHeader;
-    return JSON.stringify(data);
+    let user = getStore("user");
+    if (user != null) {
+      let token = user.token;
+      let authHeader = "";
+      if (token != null && token != "") authHeader = "Bearer " + token;
+      headers.common["Authorization"] = authHeader;
+    }
+      return JSON.stringify(data);
+ 
   },
   transformResponse: function (data) {
     data = JSON.parse(data);
     if (!data.success && data.code == "expired-session") {
-      localStorage.deleteItem("token");
+      localStorage.deleteItem("user");
     }
     return data;
   }

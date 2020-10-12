@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Semester List</H1>
+                <h3>{{message}}</h3>
                 <v-btn to="/semester-add" color="black" text rounded>Add</v-btn>
 
                 <v-data-table

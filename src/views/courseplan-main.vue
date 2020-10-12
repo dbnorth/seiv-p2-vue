@@ -3,6 +3,7 @@
         <v-row>
             <v-col>
                 <H1>Course Plan</H1>
+
                 <h2 v-if=user>Hello, {{user.user}}</h2>
                 
             </v-col>
