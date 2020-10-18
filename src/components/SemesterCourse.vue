@@ -54,7 +54,7 @@ export default {
       this.grades['F'] = 0;
       this.grades['TE'] = 0;
       this.grades['IP'] = 0;
-      this.grades['Pl'] = 0;
+      this.grades['PL'] = 0;
     },
     methods: {
         selectRow(event) {
@@ -76,7 +76,7 @@ export default {
           if (totalHours == 0)  
             return 0;
           else
-            return totalPoints/totalHours;
+            return (totalPoints/totalHours).toPrecision(3);
           }
     }
 }
