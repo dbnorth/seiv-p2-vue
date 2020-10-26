@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {getStore}  from '@/config/utils';
+import Utils from '@/utils/utils';
 
 export default {
 
@@ -22,7 +22,7 @@ export default {
         };
     },
     created() {
-        this.user = getStore('user');
+        this.user = Utils.getStore('user');
     }
 }
 </script>

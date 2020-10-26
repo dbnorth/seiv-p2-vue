@@ -62,7 +62,7 @@
 import StudentServices from '@/services/StudentServices.js';
 import DegreeServices from '@/services/DegreeServices.js';
 import AdvisorServices from '@/services/AdvisorServices.js';
-import { getStore } from '@/config/utils';
+import Utils from '@/utils/utils';
 
 export default {
     components: {},
@@ -80,7 +80,7 @@ export default {
         };
     },
     created() {
-        this.user = getStore("user");
+        this.user = Utils.getStore("user");
         if (this.user.roles =="Admin") this.isAdmin=true;
         if (this.user.roles =="Advisor") this.isAdvisor=true;
         StudentServices.getStudent(this.id)

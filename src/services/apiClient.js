@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getStore } from '@/config/utils';
+import Utils from '@/utils/utils';
 
 var baseurl = "";
 if (process.env.NODE_ENV === "development") {
@@ -18,7 +18,7 @@ export const apiClient = axios.create({
     crossDomain: true
   },
   transformRequest: (data, headers) => {
-    let user = getStore("user");
+    let user = Utils.getStore("user");
     if (user != null) {
       let token = user.token;
       let authHeader = "";
