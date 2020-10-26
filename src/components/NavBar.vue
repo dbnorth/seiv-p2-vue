@@ -62,7 +62,7 @@ export default {
     created () {
      
       this.user = Utils.getStore('user');
-      console.log(this.user.user);
+
       if (this.user!= null)
       {
         if (this.user.roles == "Advisor") this.isAdvisor = true;
