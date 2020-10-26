@@ -5,14 +5,14 @@
         <v-app-bar app color="primary" dark>
             <v-toolbar-title ref="toolbar-title">Course Plan (logged in as {{user.user}})</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn ref="home"to="/" color="white" text rounded>Home</v-btn>
+            <v-btn ref="home" to="/" color="white" text rounded>Home</v-btn>
             <v-btn ref="logout" to="/logout" color="white" text rounded>Logout</v-btn>
-            <v-btn ref="advisor-edit":to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
+            <v-btn ref="advisor-edit" :to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
             <v-btn ref="student-list" to="/student-list" color="white" text rounded>Students</v-btn>
             <v-btn ref="advisor-list" to="/advisor-list" color="white" text rounded>Advisors</v-btn>
             <v-btn ref="course-list" to="/course-list" color="white" text rounded>Courses</v-btn>
-            <v-btn ref="semester-list"to="/semester-list" color="white" text rounded>Semesters</v-btn>
-            <v-btn ref="degree-list"to="/degree-list" color="white" text rounded>Degrees</v-btn>
+            <v-btn ref="semester-list" to="/semester-list" color="white" text rounded>Semesters</v-btn>
+            <v-btn ref="degree-list" to="/degree-list" color="white" text rounded>Degrees</v-btn>
         </v-app-bar>
       </template>
       <template v-else-if="isStudent">
@@ -29,11 +29,11 @@
           <v-app-bar app color="primary" dark>
             <v-toolbar-title>Course Plan (logged in as {{user.user}})</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn to="/" color="white" text rounded>Home</v-btn>
-            <v-btn to="/logout" color="white" text rounded>Logout</v-btn>
-            <v-btn to="/student-list" color="white" text rounded>Students</v-btn>
-            <v-btn :to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
-          </v-app-bar>
+            <v-btn ref="home" to="/" color="white" text rounded>Home</v-btn>
+            <v-btn ref="logout" to="/logout" color="white" text rounded>Logout</v-btn>
+            <v-btn ref="advisor-edit" :to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
+            <v-btn ref="student-list" to="/student-list" color="white" text rounded>Students</v-btn>
+           </v-app-bar>
         </template>
         <template v-else-if= "!isLoggedIn">
           <v-app-bar app color="primary" dark>
@@ -62,7 +62,7 @@ export default {
     created () {
      
       this.user = Utils.getStore('user');
-      console.log(this.user);
+      console.log(this.user.user);
       if (this.user!= null)
       {
         if (this.user.roles == "Advisor") this.isAdvisor = true;
