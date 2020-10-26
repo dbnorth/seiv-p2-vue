@@ -12,7 +12,7 @@
 
 
 <script>
-import { getStore,setStore } from '@/config/utils';
+import Utils from '@/utils/utils';
 export default {
    data() {
         return {
@@ -20,8 +20,8 @@ export default {
         };
    },
   created ()  {
-    this.user = getStore("user");
-    setStore("user",null);
+    this.user = Utils.getStore("user");
+    Utils.setStore("user",null);
      this.$router.push({ name: 'main' });
   }
 

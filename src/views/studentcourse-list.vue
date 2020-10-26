@@ -93,7 +93,7 @@ export default {
                   return 0
               }
               );
-              console.log(this.studentCourses);
+              
               this.studentCourses.forEach(function (studentCourse) {
                   if (!((semesters).includes(studentCourse.semester.code)))
                     semesters.push(studentCourse.semester.code)
