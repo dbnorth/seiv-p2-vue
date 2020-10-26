@@ -15,7 +15,7 @@
 
 <script>
 import AuthServices from '@/services/AuthServices.js';
-import { setStore } from '@/config/utils';
+import Utils from '@/utils/utils';
 export default {
   name: 'login_signup_social',
   data() {
@@ -46,7 +46,7 @@ export default {
                 var user = response.data;
                 console.log("Returned User:"+user);
  //               this.$store.commit('setLoginUser', user);
-                setStore("user",user);
+                Utils.setStore("user",user);
                 this.$router.push({ name: 'main' });
               })
             .catch(error => {

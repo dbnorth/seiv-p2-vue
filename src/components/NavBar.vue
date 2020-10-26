@@ -1,17 +1,18 @@
 <template>
  <div>
+ 
       <template v-if="isAdmin">
         <v-app-bar app color="primary" dark>
-            <v-toolbar-title>Course Plan (logged in as {{user.user}})</v-toolbar-title>
+            <v-toolbar-title ref="toolbar-title">Course Plan (logged in as {{user.user}})</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn to="/" color="white" text rounded>Home</v-btn>
-            <v-btn to="/logout" color="white" text rounded>Logout</v-btn>
-            <v-btn :to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
-            <v-btn to="/student-list" color="white" text rounded>Students</v-btn>
-            <v-btn to="/advisor-list" color="white" text rounded>Advisors</v-btn>
-            <v-btn to="/course-list" color="white" text rounded>Courses</v-btn>
-            <v-btn to="/semester-list" color="white" text rounded>Semesters</v-btn>
-            <v-btn to="/degree-list" color="white" text rounded>Degrees</v-btn>
+            <v-btn ref="home"to="/" color="white" text rounded>Home</v-btn>
+            <v-btn ref="logout" to="/logout" color="white" text rounded>Logout</v-btn>
+            <v-btn ref="advisor-edit":to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
+            <v-btn ref="student-list" to="/student-list" color="white" text rounded>Students</v-btn>
+            <v-btn ref="advisor-list" to="/advisor-list" color="white" text rounded>Advisors</v-btn>
+            <v-btn ref="course-list" to="/course-list" color="white" text rounded>Courses</v-btn>
+            <v-btn ref="semester-list"to="/semester-list" color="white" text rounded>Semesters</v-btn>
+            <v-btn ref="degree-list"to="/degree-list" color="white" text rounded>Degrees</v-btn>
         </v-app-bar>
       </template>
       <template v-else-if="isStudent">
@@ -46,8 +47,9 @@
 </template>
 
 <script>
-import {getStore}  from '@/config/utils';
+import Utils from '@/utils/utils';
 export default {
+
     name: 'App',
 
     data: () => ({
@@ -58,19 +60,17 @@ export default {
         user : {}
     }),
     created () {
-      this.user = getStore('user');
      
+      this.user = Utils.getStore('user');
+      console.log(this.user);
       if (this.user!= null)
       {
         if (this.user.roles == "Advisor") this.isAdvisor = true;
         if (this.user.roles == "Admin") this.isAdmin = true;
         if (this.user.roles == "Student") this.isStudent = true;
-        if (this.isAdvisor || this.isAdmin || this.isStudent) this.isLoggedIn=false;
+        if (this.isAdvisor || this.isAdmin || this.isStudent) this.isLoggedIn=true;
       }
       else this.isLoggedIn=false;
-
-
-
     }
 };
 </script>
