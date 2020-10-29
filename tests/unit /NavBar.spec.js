@@ -16,9 +16,6 @@ jest.mock('@/utils/utils', ()=>({
   })
 );
 
-
-
-
 describe('NavBar Test', () => {
   let testNum =0;
   let vuetify;
@@ -26,9 +23,6 @@ describe('NavBar Test', () => {
 
   beforeEach(() => {
     vuetify = new Vuetify();
-
-
-
 
   });
 
@@ -51,7 +45,7 @@ describe('NavBar Test', () => {
       });
 
  //   await wrapper.setData({ isAdmin: true }); // setting our data value
-    wrapper.vm.$nextTick() ;
+    await Vue.nextTick();
     expect(wrapper.findComponent( {ref : "home"}).exists()).toBe(true);
     expect(wrapper.findComponent( {ref : "logout"}).exists()).toBe(true);
     expect(wrapper.findComponent( {ref : "advisor-edit"}).exists()).toBe(true);
@@ -75,7 +69,7 @@ describe('NavBar Test', () => {
         vuetify
       });
 
-      wrapper.vm.$nextTick() ;
+      await Vue.nextTick();
       expect(wrapper.findComponent( {ref : "toolbar-title"}).text()).toBe("Course Plan (logged in as James)");
 
 });
@@ -91,12 +85,38 @@ test('if a user is Advisor show corret Menu Options', async () => {
       localVue,
       vuetify
     });
-     wrapper.vm.$nextTick() ;
+     await Vue.nextTick();
      expect(wrapper.findComponent( {ref : "home"}).exists()).toBe(true);
      expect(wrapper.findComponent( {ref : "logout"}).exists()).toBe(true);
      expect(wrapper.findComponent( {ref : "advisor-edit"}).exists()).toBe(true);
      expect(wrapper.findComponent( {ref : "student-list"}).exists()).toBe(true);
+     expect(wrapper.findComponent( {ref : "advisor-list"}).exists()).toBe(false);
+     expect(wrapper.findComponent( {ref : "course-list"}).exists()).toBe(false);
+     expect(wrapper.findComponent( {ref : "semester-list"}).exists()).toBe(false);
+     expect(wrapper.findComponent( {ref : "degree-list"}).exists()).toBe(false);
  
    });
+   test('if a user is Student show corret Menu Options', async () => {
+    let user = {user:'John', roles:'Student'};
+    Utils.getStore.mockImplementation(() => user);
+  
+    wrapper = mount(NavBar,
+      { 
+        stubs: ['router-link'],
+        localVue,
+        vuetify
+      });
+      await Vue.nextTick();
+       expect(wrapper.findComponent( {ref : "home"}).exists()).toBe(true);
+       expect(wrapper.findComponent( {ref : "logout"}).exists()).toBe(true);
+       expect(wrapper.findComponent( {ref : "student-edit"}).exists()).toBe(true);
+       expect(wrapper.findComponent( {ref : "studentcourse-list"}).exists()).toBe(true);
+       expect(wrapper.findComponent( {ref : "student-list"}).exists()).toBe(false);
+       expect(wrapper.findComponent( {ref : "advisor-list"}).exists()).toBe(false);
+       expect(wrapper.findComponent( {ref : "course-list"}).exists()).toBe(false);
+       expect(wrapper.findComponent( {ref : "semester-list"}).exists()).toBe(false);
+       expect(wrapper.findComponent( {ref : "degree-list"}).exists()).toBe(false);
+   
+     });
 
 });

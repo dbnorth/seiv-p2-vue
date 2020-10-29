@@ -1,6 +1,5 @@
 <template>
  <div>
- 
       <template v-if="isAdmin">
         <v-app-bar app color="primary" dark>
             <v-toolbar-title ref="toolbar-title">Course Plan (logged in as {{user.user}})</v-toolbar-title>
@@ -19,10 +18,10 @@
           <v-app-bar app color="primary" dark>
             <v-toolbar-title>Course Plan (logged in as {{user.user}})</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn to="/" color="white" text rounded>Home</v-btn>
-            <v-btn to="/logout" color="white" text rounded>Logout</v-btn>
-            <v-btn :to="{ name :'studentedit', params: {id: user.studentId }}" color="white" text rounded>Student</v-btn>
-            <v-btn :to="{ name :'studentcourselist', params: {id: user.studentId }}"  color="white" text rounded>Course Plan</v-btn>
+            <v-btn ref="home" to="/" color="white" text rounded>Home</v-btn>
+            <v-btn ref="logout" to="/logout" color="white" text rounded>Logout</v-btn>
+            <v-btn ref="student-edit":to="{ name :'studentedit', params: {id: user.studentId }}" color="white" text rounded>Student</v-btn>
+            <v-btn ref="studentcourse-list":to="{ name :'studentcourselist', params: {id: user.studentId }}"  color="white" text rounded>Course Plan</v-btn>
           </v-app-bar>
       </template>
       <template v-else-if="isAdvisor">

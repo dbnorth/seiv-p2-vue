@@ -4,21 +4,24 @@
             <v-col>
                 <h1>Student Edit</h1>
                 <h4>{{ message }}</h4>
+                <h5 ref="fn">{{student.firstName}}</h5>
                 <v-form>
-                    <v-text-field
+                    <v-text-field ref="idNumber"
                         label="Id Number"
-                        v-model="student.idNumber"
+                        v-model ="student.idNumber"
                     />
-                    <v-text-field
+                    <v-text-field ref="firstName"
                         label="First Name"
                         v-model="student.firstName"
                     />
-                    <v-text-field
+                    <v-text-field ref="lastName"
                         label="Last Name"
                         v-model="student.lastName"
                     />
-                    <v-text-field label="Email" v-model="student.email" />
-                    <v-text-field
+                    <v-text-field ref="email"
+                        label="Email" 
+                        v-model="student.email" />
+                    <v-text-field ref="gradDate"
                         v-model="student.gradDate"
                         label="Graduation Date"
                         hint="MM/DD/YYYY format"
@@ -38,12 +41,12 @@
                     <v-row justify="center">
                         <v-col col="2"> </v-col>
                         <v-col col="2">
-                            <v-btn color="success" @click="saveStudent()"
+                            <v-btn ref="saveBtn" color="success" @click="saveStudent()"
                                 >Save</v-btn
                             >
                         </v-col>
                         <v-col col="2">
-                            <v-btn v-if="isAdvisor || isAdmin" color="warning" @click="deleteStudent()"
+                            <v-btn v-if="isAdvisor || isAdmin" ref="deletBtn" color="warning" @click="deleteStudent()"
                                 >Delete</v-btn
                             >
                         </v-col>
@@ -79,17 +82,19 @@ export default {
             message: 'Make changes to the student and Save',
         };
     },
-    created() {
+    async created() {
         this.user = Utils.getStore("user");
         if (this.user.roles =="Admin") this.isAdmin=true;
         if (this.user.roles =="Advisor") this.isAdvisor=true;
-        StudentServices.getStudent(this.id)
+        await StudentServices.getStudent(this.id)
             .then(response => {
                 this.student = response.data;
             })
             .catch(error => {
                 this.message = error.response.data.message;
             });
+            
+
         DegreeServices.getDegrees()
             .then(response => {
                 this.degrees = response.data;
@@ -109,6 +114,7 @@ export default {
             .catch(error => {
                 this.message = error.response.data.message;
             });
+            
     },
 
     methods: {
