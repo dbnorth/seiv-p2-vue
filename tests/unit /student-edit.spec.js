@@ -14,7 +14,7 @@ Vue.use(Vuetify);
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
-const router = new VueRouter();
+const router = new VueRouter({mode:'abstract'});
 
 // set up mocks
 jest.mock('@/utils/utils', ()=>({
@@ -31,10 +31,14 @@ jest.mock('@/services/AdvisorServices.js', ()=>({
   })
 );
 jest.mock('@/services/StudentServices', ()=>(
-    {getStudent : jest.fn()}
-//    {updateStudent : jest.fn()}
+    {
+      getStudent : jest.fn(),
+      updateStudent : jest.fn(),
+      deleteStudent : jest.fn()
+    }
   )
 );
+
 
 // Test
 describe('Student Edit Test', () => {
@@ -90,7 +94,7 @@ describe('Student Edit Test', () => {
     expect(wrapper.findComponent( {ref : "deletBtn"}).exists()).toBe(false);
 
   });
-/*
+
   test('if save button call updateStudnet with cortrect data', async () => {
     let data = {data : {id: "1",
       idNumber: "10000001",
@@ -115,19 +119,62 @@ describe('Student Edit Test', () => {
     wrapper = mount(StudentEdit,
       { 
         propsdata :{id:"1"},
-        stubs: [],
         localVue,
-        vuetify
+        vuetify,
+        router
+  
       });
   
       await Vue.nextTick();
       let saveButton = wrapper.findComponent( {ref : "saveBtn"});
       saveButton.trigger('click');
+      await Vue.nextTick();
 
       expect(StudentServices.updateStudent).toHaveBeenCalled();
       expect(StudentServices.updateStudent).toHaveBeenCalledWith(data.data);
-      expect(value).toBe(data.data);
+
 
   });
-*/
+  test('if delete button call updateStudnet with cortrect data', async () => {
+    let data = {data : {id: "1",
+      idNumber: "10000001",
+      firstName: "Jack",
+      lastName: "Sprat",
+      email: "jsprat@eagles.oc.edu",
+      degreeId: '',
+      advisorId: '',
+      gradDate :"04/22/2022",
+      roles: "Student"
+    }};
+    let emptyData = {data: []};
+
+    StudentServices.getStudent.mockResolvedValue(data);
+    StudentServices.updateStudent.mockResolvedValue();
+    StudentServices.deleteStudent.mockResolvedValue();
+    DegreeServices.getDegrees.mockResolvedValue(emptyData);
+    AdvisorServices.getAdvisors.mockResolvedValue(emptyData);
+
+    let user = {user:'Joe', roles:'Admin'};
+    Utils.getStore.mockImplementation(() => user);
+
+    wrapper = mount(StudentEdit,
+      { 
+        propsdata :{id:"1"},
+        localVue,
+        vuetify,
+        router
+  
+      });
+  
+      await Vue.nextTick();
+      let deleteButton = wrapper.findComponent( {ref : "deleteBtn"});
+      deleteButton.trigger('click');
+      await Vue.nextTick();
+      expect(wrapper.findComponent( {ref : "deleteBtn"}).exists()).toBe(true);
+      expect(StudentServices.deleteStudent).toHaveBeenCalled();
+      expect(StudentServices.deleteStudent).toHaveBeenCalledWith("1");
+
+
+  });
+
 });

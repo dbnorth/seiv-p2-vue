@@ -46,7 +46,7 @@
                             >
                         </v-col>
                         <v-col col="2">
-                            <v-btn v-if="isAdvisor || isAdmin" ref="deletBtn" color="warning" @click="deleteStudent()"
+                            <v-btn v-if="isAdvisor || isAdmin" ref="deleteBtn" color="warning" @click="deleteStudent()"
                                 >Delete</v-btn
                             >
                         </v-col>
