@@ -1,47 +1,44 @@
 <template>
- <div>
-      <template v-if="isAdmin">
-        <v-app-bar app color="primary" dark>
-            <v-toolbar-title ref="toolbar-title">Course Plan (logged in as {{user.user}})</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn ref="home" to="/" color="white" text rounded>Home</v-btn>
-            <v-btn ref="logout" to="/logout" color="white" text rounded>Logout</v-btn>
-            <v-btn ref="advisor-edit" :to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
-            <v-btn ref="student-list" to="/student-list" color="white" text rounded>Students</v-btn>
-            <v-btn ref="advisor-list" to="/advisor-list" color="white" text rounded>Advisors</v-btn>
-            <v-btn ref="course-list" to="/course-list" color="white" text rounded>Courses</v-btn>
-            <v-btn ref="semester-list" to="/semester-list" color="white" text rounded>Semesters</v-btn>
-            <v-btn ref="degree-list" to="/degree-list" color="white" text rounded>Degrees</v-btn>
-        </v-app-bar>
-      </template>
-      <template v-else-if="isStudent">
-          <v-app-bar app color="primary" dark>
-            <v-toolbar-title>Course Plan (logged in as {{user.user}})</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn ref="home" to="/" color="white" text rounded>Home</v-btn>
-            <v-btn ref="logout" to="/logout" color="white" text rounded>Logout</v-btn>
-            <v-btn ref="student-edit":to="{ name :'studentedit', params: {id: user.studentId }}" color="white" text rounded>Student</v-btn>
-            <v-btn ref="studentcourse-list":to="{ name :'studentcourselist', params: {id: user.studentId }}"  color="white" text rounded>Course Plan</v-btn>
-          </v-app-bar>
-      </template>
-      <template v-else-if="isAdvisor">
-          <v-app-bar app color="primary" dark>
-            <v-toolbar-title>Course Plan (logged in as {{user.user}})</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn ref="home" to="/" color="white" text rounded>Home</v-btn>
-            <v-btn ref="logout" to="/logout" color="white" text rounded>Logout</v-btn>
-            <v-btn ref="advisor-edit" :to="{ name :'advisoredit', params: {id: user.advisorId }}" color="white" text rounded>Advisor</v-btn>
-            <v-btn ref="student-list" to="/student-list" color="white" text rounded>Students</v-btn>
-           </v-app-bar>
-        </template>
-        <template v-else-if= "!isLoggedIn">
-          <v-app-bar app color="primary" dark>
-            <v-toolbar-title>Course Plan</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn to="/" color="white" text rounded>Home</v-btn>
-            <v-btn to="/login" color="white" text rounded>Login</v-btn>
-          </v-app-bar>
-        </template>
+<div>
+      <v-app-bar  dark color="#811429" class="hidden-sm-and-down">
+        <v-img
+          class="mx-2"
+          src="../assets/oc-logo.png"
+          max-height="40"
+          max-width="40"
+          contain
+        ></v-img>
+        <v-toolbar-title ref="toolbar-title">Course Plan - Hello {{user.user}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+           <v-btn v-for="menu in activeMenus"  exact :key="menu.ref" :ref="menu.ref" link :to="{name:menu.name, params: {id:user.userId}}" :color="menu.color" text >{{menu.text}}</v-btn>
+        </v-toolbar-items>
+      </v-app-bar>
+      
+      <v-app-bar  dark color="#811429" class="hidden-md-and-up">
+        <v-img
+          class="mx-2"
+          src="../assets/oc-logo.png"
+          max-height="40"
+          max-width="40"
+          contain></v-img>
+        <v-toolbar-title ref="toolbar-title">Course Plan - Hello {{user.user}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-app-bar-nav-icon dark @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-navigation-drawer  v-model="drawer" app  color="#811429">
+            <v-list nav>
+                <v-list-item v-for="menu in activeMenus" :key="menu.ref"
+                  exact :ref="menu.ref" :to="{name:menu.name, params: {id:user.userId}}" >
+                  <v-list-item-action >
+                    <v-icon v-if="menu.icon">{{menu.icon}}</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title :title="menu.text">{{ menu.text }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+      </v-app-bar>
 </div>
 </template>
 
@@ -52,24 +49,38 @@ export default {
     name: 'App',
 
     data: () => ({
-        isAdmin : false,
-        isStudent : false,
-        isAdvisor : false,
-        isLoggedIn : true,
-        user : {}
+        drawer : false,
+        user : {},
+        menus : [ 
+            {ref : 'home', name : "main", color : "white", text: 'Home', roles : "None,Admin,Advisor,Student" , icon: "mdi-home"},
+            {ref : 'login', name : "login", color : "white", text: 'Login', roles : "None", icon : "mdi-login"},
+            {ref : 'logout', name : "logout", color : "white", text: 'Logout', roles : "Admin,Advisor,Student", icon: "mdi-logout"},
+            {ref : 'advisor-edit', name : "advisoredit", color : "white", text: 'Advisor', roles : "Admin,Advisor", icon : "mdi-account"},
+            {ref : 'student-edit', name : "studentedit", color : "white", text: 'Student', roles : "Student", icon : "mdi-account"},
+            {ref : 'student-list', name : "studentlist", color : "white", text: 'Students', roles : "Admin,Advisor", icon : "mdi-account-group"},
+            {ref : 'advisor-list', name : "advisorlist", color : "white", text: 'Advisors', roles : "Admin", icon :"mdi-account-supervisor"},
+            {ref : 'course-list',  name: "courselist", color : "white", text: 'Courses', roles : "Admin", icon : "mdi-bookshelf"},
+            {ref : 'semester-list', name : "semesterlist", color : "white", text: 'Semesters', roles : "Admin", icon: "mdi-calendar"},
+            {ref : 'degree-list', name : "degreelist", color : "white", text: 'Degrees', roles : "Admin", icon:"mdi-school"},
+            {ref : 'studentcourse-list', name : "studentcourselist", color : "white", text: 'Course Plan', roles : "Student" , icon :"mdi-book-acocunt"}
+        ],
+        activeMenus : []
     }),
     created () {
      
       this.user = Utils.getStore('user');
-
       if (this.user!= null)
       {
-        if (this.user.roles == "Advisor") this.isAdvisor = true;
-        if (this.user.roles == "Admin") this.isAdmin = true;
-        if (this.user.roles == "Student") this.isStudent = true;
-        if (this.isAdvisor || this.isAdmin || this.isStudent) this.isLoggedIn=true;
+        this.activeMenus = this.menus.filter(menu => menu.roles.includes(this.user.roles));
       }
-      else this.isLoggedIn=false;
+      else {
+
+        this.activeMenus = this.menus.filter(menu => menu.roles.includes("None"));
+        this.user = {advisorId: ''};
+
+      }
     }
+
+
 };
 </script>

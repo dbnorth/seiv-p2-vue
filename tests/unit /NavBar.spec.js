@@ -70,7 +70,7 @@ describe('NavBar Test', () => {
       });
 
       await Vue.nextTick();
-      expect(wrapper.findComponent( {ref : "toolbar-title"}).text()).toBe("Course Plan (logged in as James)");
+      expect(wrapper.findComponent( {ref : "toolbar-title"}).text()).toBe("Course Plan - Hello James");
 
 });
 
