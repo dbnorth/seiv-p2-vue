@@ -1,6 +1,6 @@
 <template>
 <div>
-      <v-app-bar  dark color="#811429" class="hidden-sm-and-down">
+      <v-app-bar  dark color="#811429" class="hidden-md-and-down">
         <v-img
           class="mx-2"
           src="../assets/oc-logo.png"
@@ -15,7 +15,7 @@
         </v-toolbar-items>
       </v-app-bar>
       
-      <v-app-bar  dark color="#811429" class="hidden-md-and-up">
+      <v-app-bar  dark color="#811429" class="hidden-lg-and-up">
         <v-img
           class="mx-2"
           src="../assets/oc-logo.png"
@@ -24,21 +24,29 @@
           contain></v-img>
         <v-toolbar-title ref="toolbar-title">Course Plan - Hello {{user.user}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-app-bar-nav-icon dark @click="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-navigation-drawer  v-model="drawer" app  color="#811429">
-            <v-list nav>
-                <v-list-item v-for="menu in activeMenus" :key="menu.ref"
-                  exact :ref="menu.ref" :to="{name:menu.name, params: {id:user.userId}}" >
+        <v-app-bar-nav-icon dark @click="drawer = !drawer" ></v-app-bar-nav-icon>
+       </v-app-bar> 
+        <v-navigation-drawer v-if="drawer" class="hidden-lg-and-up" 
+              v-model="drawer" 
+              permanent="drawer"
+              app 
+              dark
+              clipped-left
+              :mini-variant.sync=$vuetify.breakpoint.smAndDown
+              color="#811429">
+            <v-list >
+                <v-list-item  exact v-for="menu in activeMenus" :to="{name:menu.name, params: {id:user.userId}}" :color="menu.color"  :key="menu.text"  >
                   <v-list-item-action >
                     <v-icon v-if="menu.icon">{{menu.icon}}</v-icon>
                   </v-list-item-action>
                   <v-list-item-content>
-                    <v-list-item-title :title="menu.text">{{ menu.text }}</v-list-item-title>
+                    <v-list-item-title >{{ menu.text }}
+                    </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-      </v-app-bar>
+      
 </div>
 </template>
 
@@ -78,6 +86,12 @@ export default {
         this.activeMenus = this.menus.filter(menu => menu.roles.includes("None"));
         this.user = {advisorId: ''};
 
+      }
+    },
+    methods: {
+      menuAction(route) {
+        console.log(route)
+        this.$router.push({ name: route})
       }
     }
 

@@ -1,9 +1,11 @@
 <template>
     <v-app>
-        <NavBar :key="$route.fullPath" />
-        <v-main>
-            <router-view />
-        </v-main>
+      <NavBar :key="$route.fullPath" />
+      <v-main class="light">
+        <v-container>
+          <router-view />
+        </v-container>
+      </v-main>
     </v-app>
 </template>
 
