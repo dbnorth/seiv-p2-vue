@@ -19,7 +19,8 @@ export default {
   data() {
         return { 
             semester :{},
-            grades : [],     
+            grades : [], 
+            gpaGrades : ['A','B','C','D','F'],  
             headers: [
 
                 {
@@ -56,6 +57,7 @@ export default {
       this.grades['IP'] = 0;
       this.grades['PL'] = 0;
     },
+
     methods: {
         selectRow(event) {
             let id = event.id;
@@ -67,17 +69,18 @@ export default {
           return totalHours;
           },
         gpa() {
-          let totalHours = 0;
+          let gpaHours = 0;
           let totalPoints = 0;
-          this.studentCourses.forEach(element => {
-          totalHours+=element.course.hours;
-          totalPoints+= this.grades[element.grade] * element.course.hours;
-          });
-          if (totalHours == 0)  
+          this.studentCourses.filter(studentCourse => this.gpaGrades.includes(studentCourse.grade)).forEach(element => {
+            gpaHours+=element.course.hours;
+            totalPoints+= this.grades[element.grade] * element.course.hours;
+          })
+          if (gpaHours == 0)  
             return 0;
           else
-            return (totalPoints/totalHours).toPrecision(3);
+            return (totalPoints/gpaHours).toPrecision(3);
           }
+
     }
 }
 

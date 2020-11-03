@@ -34,6 +34,7 @@ export default {
             totalHours : 0,
             gpa : 0,
             grades :[],
+            gpaGrades : ['A','B','C','D','F'], 
             message: 'Enter click on course to edit'
         };
     },
@@ -46,18 +47,17 @@ export default {
         calcGPA() {
           let totalHours = 0;
           let totalPoints = 0;
-          this.studentCourses.forEach(studentCourse => { 
+          this.studentCourses.filter(studentCourse => this.gpaGrades.includes(studentCourse.grade)).forEach(studentCourse => { 
+
             totalHours += studentCourse.course.hours;
             totalPoints += studentCourse.course.hours * this.grades[studentCourse.grade];
-            console.log(this.grades[studentCourse.grade])
             });
           if (totalHours == 0) {
             this.gpa=0;
             this.gpa.toPrecision(3);
           }
           else {
-            console.log(totalPoints);
-            console.log(totalHours);
+
             this.gpa = totalPoints/totalHours;
             this.gpa = this.gpa.toPrecision(3);
           }
@@ -78,7 +78,7 @@ export default {
         await StudentServices.getStudent(this.id)
             .then(response => {
                 this.student = response.data; 
-                console.log()
+
             })
             .catch(error => {
                 this.message = error.response.data.message;

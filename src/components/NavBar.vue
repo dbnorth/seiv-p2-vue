@@ -28,7 +28,7 @@
        </v-app-bar> 
         <v-navigation-drawer v-if="drawer" class="hidden-lg-and-up" 
               v-model="drawer" 
-              permanent="drawer"
+              permanent=drawer
               app 
               dark
               clipped-left
@@ -70,7 +70,7 @@ export default {
             {ref : 'course-list',  name: "courselist", color : "white", text: 'Courses', roles : "Admin", icon : "mdi-bookshelf"},
             {ref : 'semester-list', name : "semesterlist", color : "white", text: 'Semesters', roles : "Admin", icon: "mdi-calendar"},
             {ref : 'degree-list', name : "degreelist", color : "white", text: 'Degrees', roles : "Admin", icon:"mdi-school"},
-            {ref : 'studentcourse-list', name : "studentcourselist", color : "white", text: 'Course Plan', roles : "Student" , icon :"mdi-book-acocunt"}
+            {ref : 'studentcourse-list', name : "studentcourselist", color : "white", text: 'Course Plan', roles : "Student" , icon :"mdi-book-account"}
         ],
         activeMenus : []
     }),
@@ -90,7 +90,6 @@ export default {
     },
     methods: {
       menuAction(route) {
-        console.log(route)
         this.$router.push({ name: route})
       }
     }
