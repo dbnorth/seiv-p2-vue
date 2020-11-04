@@ -7,6 +7,7 @@
 
                 <H2>{{student.firstName}} {{student.lastName}} Hours : {{totalHours}} GPA : {{gpa}}</H2>
                 <v-btn :to="{ name:'studentcourseadd', params: { id: id }}" color="black" text rounded>Add</v-btn>
+                <v-btn v-on:click="generatePDF" color="black" text rounded>PDF</v-btn>
                 <SemesterCourse v-for="semester in semesterCourses" :key="semester" :studentCourses="semester" />
                
             </v-col>
@@ -19,11 +20,14 @@ import StudentServices from '@/services/StudentServices.js';
 import StudentCourseServices from '@/services/StudentCourseServices.js';
 import SemesterCourse from '@/components/SemesterCourse';
 
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
 
 export default {
     name: 'semestercourse',
     components: {
       SemesterCourse
+  
     },
     props :["id"],
     data() {
@@ -63,6 +67,61 @@ export default {
           }
           
         },
+      generatePDF() {
+          console.log("gen pdf");
+          const columns = [
+            { title: "Semester", dataKey: "semester" },
+            { title: "Number", dataKey: "number" },
+            { title: "Name", dataKey: "name" },
+            { title: "Grade", dataKey: "grade" }
+          ];
+          let pdfCourses = []
+          this.studentCourses.forEach(function (studentCourse) {
+            let course ={};
+            course.semester=studentCourse.semester.code;
+            course.number=studentCourse.course.number;
+            course.name=studentCourse.course.name;
+            course.grade=studentCourse.grade;
+            pdfCourses.push(course);
+          
+          });
+
+          const doc = new jsPDF({
+            orientation: "portrait",
+            unit: "in",
+            format: "letter"
+          });
+//         var img = new Image()
+//          img.src = 'assets/oc-logo.png'
+//          doc.addImage(img, 'PNG', 5, 5, 212, 150);
+          let asof = "as of " +  new Date(Date.now()).toLocaleDateString();
+          // text is placed using x, y coordinates
+          doc.setFontSize(16).text("Course Plan for " + this.student.firstName +" "+this.student.lastName, 0.5, 1.0);
+          doc.setFontSize(12).text(asof, 0.5, 1.2);
+
+          // create a line under heading 
+          doc.setLineWidth(0.01).line(0.5, 1.4, 8.0, 1.4);
+          // Using autoTable plugin
+          
+          doc.autoTable({
+            columns,
+            body: pdfCourses,
+            margin: { left: 0.5, top: 1.5 }
+          });
+          
+          // Creating footer and saving file
+          let footer = "Course Plan for " + this.student.firstName +" "+this.student.lastName;
+          doc
+            .setFont("times")
+            .setFontSize(11)
+            .setTextColor(0, 0, 255)
+            .text(
+              footer,
+              0.5,
+              doc.internal.pageSize.height - 0.5
+            )
+            .save(`courseplan.pdf`);
+        }
     },
 
    async created() {
@@ -78,7 +137,6 @@ export default {
         await StudentServices.getStudent(this.id)
             .then(response => {
                 this.student = response.data; 
-
             })
             .catch(error => {
                 this.message = error.response.data.message;
@@ -110,7 +168,9 @@ export default {
             this.calcTotalHours();
             this.calcGPA();
     }
-}
+
+  }
+
 </script>
 
-<style></style>
+
