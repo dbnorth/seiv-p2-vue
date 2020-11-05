@@ -8,7 +8,7 @@
                 <H2>{{student.firstName}} {{student.lastName}} Hours : {{totalHours}} GPA : {{gpa}}</H2>
                 <v-btn :to="{ name:'studentcourseadd', params: { id: id }}" color="black" text rounded>Add</v-btn>
                 <v-btn v-on:click="generatePDF" color="black" text rounded>PDF</v-btn>
-                <SemesterCourse v-for="semester in semesterCourses" :key="semester" :studentCourses="semester" />
+                <SemesterCourse v-for="semesterCourse in semesterCourses" :key="semesterCourse[0].code" :studentCourses="semesterCourse" />
                
             </v-col>
         </v-row>
@@ -75,16 +75,6 @@ export default {
             { title: "Name", dataKey: "name" },
             { title: "Grade", dataKey: "grade" }
           ];
-          let pdfCourses = []
-          this.studentCourses.forEach(function (studentCourse) {
-            let course ={};
-            course.semester=studentCourse.semester.code;
-            course.number=studentCourse.course.number;
-            course.name=studentCourse.course.name;
-            course.grade=studentCourse.grade;
-            pdfCourses.push(course);
-          
-          });
 
           const doc = new jsPDF({
             orientation: "portrait",
@@ -95,26 +85,45 @@ export default {
 //          img.src = 'assets/oc-logo.png'
 //          doc.addImage(img, 'PNG', 5, 5, 212, 150);
           let asof = "as of " +  new Date(Date.now()).toLocaleDateString();
+          console.log("GPA: "+ this.calcGPA());
+          let totalInfo = "Hours: "+this.totalHours+" GPA: "+this.gpa;
           // text is placed using x, y coordinates
           doc.setFontSize(16).text("Course Plan for " + this.student.firstName +" "+this.student.lastName, 0.5, 1.0);
           doc.setFontSize(12).text(asof, 0.5, 1.2);
+          doc.setFontSize(12).text(totalInfo, 0.5, 1.4);
 
           // create a line under heading 
-          doc.setLineWidth(0.01).line(0.5, 1.4, 8.0, 1.4);
+          doc.setLineWidth(0.01).line(0.5, 1.5, 8.0, 1.5);
           // Using autoTable plugin
-          
+          let finalY = 1.6;
+          this.semesterCourses.forEach(semester => {
+            let pdfCourses = [];
+            semester.forEach(function (studentCourse) {
+              let course ={};
+              course.semester=studentCourse.semester.code;
+              course.number=studentCourse.course.number;
+              course.name=studentCourse.course.name;
+              course.grade=studentCourse.grade;
+              pdfCourses.push(course);
+            });
+          let semesterCode = pdfCourses[0].semester;   
+          doc.setFontSize(14).text(semesterCode,0.5,finalY + .3);
           doc.autoTable({
             columns,
+            startY: finalY+.4,
             body: pdfCourses,
             margin: { left: 0.5, top: 1.5 }
           });
+          finalY = doc.previousAutoTable.finalY; //this gives you the value of the end-y-axis-position of the previous autotable.
+          
+      })
+
           
           // Creating footer and saving file
           let footer = "Course Plan for " + this.student.firstName +" "+this.student.lastName;
           doc
             .setFont("times")
             .setFontSize(11)
-            .setTextColor(0, 0, 255)
             .text(
               footer,
               0.5,
@@ -167,6 +176,7 @@ export default {
             });
             this.calcTotalHours();
             this.calcGPA();
+          
     }
 
   }
