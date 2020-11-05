@@ -171,7 +171,7 @@ export default {
 
             })
             .catch(error => {
-                this.message = error.response.data.message;
+                this.message = error.response.message;
             });
         let semesters =[];
 
