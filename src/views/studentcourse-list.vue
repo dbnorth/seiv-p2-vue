@@ -5,7 +5,7 @@
                 <H1>Student Course Plan</H1>
                <h3>{{message}}</h3>
 
-                <H2>{{student.firstName}} {{student.lastName}} Hours : {{totalHours}} GPA : {{gpa}}</H2>
+                <H2>{{student.firstName}} {{student.lastName}} Hours : {{totalHours}} GPA : {{gpa}} Major: {{student.degree.description}}  Major Hours : {{majorHours}}</H2>
                 <v-btn :to="{ name:'studentcourseadd', params: { id: id }}" color="black" text rounded>Add</v-btn>
                 <SemesterCourse v-for="semester in semesterCourses" :key="semester" :studentCourses="semester" />
                
@@ -17,6 +17,7 @@
 <script>
 import StudentServices from '@/services/StudentServices.js';
 import StudentCourseServices from '@/services/StudentCourseServices.js';
+import DegreeCourseServices from '@/services/DegreeCourseServices.js';
 import SemesterCourse from '@/components/SemesterCourse';
 
 
@@ -31,7 +32,9 @@ export default {
             student: {},
             studentCourses :[],
             semesterCourses : [],
+            degreeCourses : [],
             totalHours : 0,
+            majorHours : 0,
             gpa : 0,
             grades :[],
             gpaGrades : ['A','B','C','D','F'], 
@@ -43,6 +46,11 @@ export default {
         calcTotalHours() {
           this.totalHours = 0;
           this.studentCourses.forEach(studentCourse => { this.totalHours += studentCourse.course.hours});
+        },
+        calcMajorHours() {
+          this.majorHours = 0;
+          this.studentCourses.filter(studentCourse => this.degreeCourses.includes(studentCourse.courseID))
+            .forEach(studentCourse => { this.majorHours += studentCourse.course.hours});
         },
         calcGPA() {
           let totalHours = 0;
@@ -78,12 +86,23 @@ export default {
         await StudentServices.getStudent(this.id)
             .then(response => {
                 this.student = response.data; 
+                console.log(this.student);
 
             })
             .catch(error => {
                 this.message = error.response.data.message;
             });
         let semesters =[];
+
+        await DegreeCourseServices.getDegreeCoursesForDegree(this.student.degreeId)
+            .then(response => {
+              let dc = response.data;
+              dc.forEach(degreeCourse => this.degreeCourses.push(degreeCourse.courseId));
+            })
+            .catch(error => {
+                this.message = error.response.data.message;
+            });
+
         await StudentCourseServices.getStudentCoursesForStudent(this.id) 
             .then(response => {
               this.studentCourses = response.data;
