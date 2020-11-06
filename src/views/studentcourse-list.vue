@@ -103,6 +103,7 @@ export default {
           let asof = "as of " + new Date(Date.now()).toLocaleDateString();
           let totalInfo = "Hours: "+this.totalHours+"  GPA: "+this.gpa;
           let degreeInfo = "Major : "+this.student.degree.description+" Hours :"+this.majorHours;
+          let footer = "Course Plan for " + this.student.firstName +" "+this.student.lastName+" "+ asof;
           // text is placed using x, y coordinates
           doc.setFontSize(16).text("Course Plan for " + this.student.firstName +" "+this.student.lastName+"       Advisor: "+this.student.advisor.lastName, 1.5, 1.0);
           doc.setFontSize(12).text(asof, 1.5, 1.2);
@@ -114,8 +115,15 @@ export default {
           // Using autoTable plugin
           let finalY = 1.8;
           let page = 1;
+          doc.setFontSize(10).text(footer,.5, doc.internal.pageSize.height - .5)
           this.semesterCourses.forEach(semester => {
             let pdfCourses = [];
+            if(finalY>8.5) {
+              doc.addPage();
+              doc.setPage(page+1);
+              finalY = .5;
+              doc.setFontSize(10).text(footer,.5, doc.internal.pageSize.height - .5)
+            }
             semester.forEach(function (studentCourse) {
               let course ={};
               course.semester=studentCourse.semester.code;
@@ -137,23 +145,11 @@ export default {
             margin: { left: .5, top: 1.5 }
           });
           finalY = doc.previousAutoTable.finalY; //this gives you the value of the end-y-axis-position of the previous autotable.
-          if(finalY>8.5) {
-            doc.addPage();
-            doc.setPage(page+1);
-            finalY = .5;
-          }
+
           
       })
           // Creating footer and saving file
-          let footer = "Course Plan for " + this.student.firstName +" "+this.student.lastName;
-          doc
-            .setFont("times")
-            .setFontSize(11)
-            .text(
-              footer,
-              .5,
-              doc.internal.pageSize.height - .5
-            )
+
 
  
           doc.save(`courseplan.pdf`); 
