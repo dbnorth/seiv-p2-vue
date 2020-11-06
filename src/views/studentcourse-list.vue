@@ -138,7 +138,7 @@ export default {
           });
           finalY = doc.previousAutoTable.finalY; //this gives you the value of the end-y-axis-position of the previous autotable.
           if(finalY>8.5) {
-            doc.addPage(8.5,11);
+            doc.addPage();
             doc.setPage(page+1);
             finalY = .5;
           }
