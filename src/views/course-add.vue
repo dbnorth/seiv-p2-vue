@@ -14,7 +14,7 @@
                     />
                     <v-text-field label="Hours" v-model="course.hours" />
                     <v-text-field label="Level" v-model="course.level" />
-                    <v-text-field label="Semesters Offered" v-model="course.semesterOffered" />
+                    <v-text-field label="Semesters Offered" v-model="course.semestersOffered" />
                     <v-row justify="center">
                         <v-col col="3"> </v-col>
                         <v-col col="2">
