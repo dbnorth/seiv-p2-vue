@@ -14,7 +14,7 @@
                     />
                     <v-text-field label="Hours" v-model="course.hours" />
                     <v-text-field label="Level" v-model="course.level" />
-                    <v-text-field label="Semesters Offered" v-model="course.semesterOffered" />
+                    <v-text-field label="Semesters Offered" v-model="course.semestersOffered" />
                     <h4>Include in Degrees</h4>
                     <v-data-table
                       :headers="headers"

@@ -41,6 +41,12 @@ export default {
                     align: 'left',
                     sortable: false,
                 },
+                {
+                    text: 'Note',
+                    value: 'note',
+                    align: 'left',
+                    sortable: false,
+                },
               
             ],
             message: 'Enter click on course to edit'
@@ -48,6 +54,12 @@ export default {
     },
     created (){
       this.semester = this.studentCourses[0].semester.code;
+      let semesterCode = null;
+      if (this.semester.length == 3) 
+        semesterCode = this.semester.substring(0,1);
+      else
+        semesterCode = this.semester.substring(0,2);
+
       this.grades['A'] = 4;
       this.grades['B'] = 3;
       this.grades['C'] = 2;
@@ -56,6 +68,13 @@ export default {
       this.grades['TE'] = 0;
       this.grades['IP'] = 0;
       this.grades['PL'] = 0;
+      this.studentCourses.forEach(studentCourse => {
+        if (studentCourse.course.semestersOffered != null) {
+          if (!studentCourse.course.semestersOffered.includes(semesterCode)) 
+            studentCourse.note = "Not Offerd - only "+studentCourse.course.semestersOffered
+          }
+      })
+ 
     },
 
     methods: {
