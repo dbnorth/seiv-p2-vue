@@ -12,6 +12,7 @@
                     :items-per-page="10"
                     class="elevation - 1"
                     @click:row="selectRow"
+                    mobile-breakpoint="0"
                 >
                 </v-data-table>
             </v-col>
