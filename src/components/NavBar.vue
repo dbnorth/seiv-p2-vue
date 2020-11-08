@@ -8,9 +8,8 @@
           max-width="40"
           contain
         ></v-img>
-        <v-toolbar-title v-if=!user ref="toolbar-title">Course Plan - Hello {{user.user}}</v-toolbar-title>
-        <v-toolbar-title v-if=user ref="toolbar-title">Course Plan - No user logged in</v-toolbar-title>
-        <v-spacer></v-spacer>
+        <v-toolbar-title ref="toolbar-title">{{title}}</v-toolbar-title>
+         <v-spacer></v-spacer>
         <v-toolbar-items>
            <v-btn v-for="menu in activeMenus"  exact :key="menu.ref" :ref="menu.ref" link :to="{name:menu.name, params: {id:user.userId}}" :color="menu.color" text >{{menu.text}}</v-btn>
         </v-toolbar-items>
@@ -23,13 +22,13 @@
           max-height="40"
           max-width="40"
           contain></v-img>
-        <v-toolbar-title ref="toolbar-title">Course Plan - Hello {{user.user}}</v-toolbar-title>
+        <v-toolbar-title ref="toolbar-title">{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-app-bar-nav-icon dark @click="drawer = !drawer" ></v-app-bar-nav-icon>
        </v-app-bar> 
         <v-navigation-drawer v-if="drawer" class="hidden-lg-and-up" 
               v-model="drawer" 
-              permanent=drawer
+
               app 
               dark
               clipped-left
@@ -60,6 +59,7 @@ export default {
     data: () => ({
         drawer : false,
         user : {},
+        title :"",
         menus : [ 
             {ref : 'home', name : "main", color : "white", text: 'Home', roles : "None,Admin,Advisor,Student" , icon: "mdi-home"},
             {ref : 'login', name : "login", color : "white", text: 'Login', roles : "None", icon : "mdi-login"},
@@ -78,6 +78,9 @@ export default {
     created () {
      
       this.user = Utils.getStore('user');
+      if (this.user !=null) this.title ="Course Plan - Hello "+this.user.user;
+        else this.title ="Course Plan - no user logged in";
+      console.log("user="+this.user);
       if (this.user!= null)
       {
         this.activeMenus = this.menus.filter(menu => menu.roles.includes(this.user.roles));

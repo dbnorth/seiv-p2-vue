@@ -25,19 +25,23 @@ export default {
     async created()  {
         this.user = Utils.getStore('user');
         document.title = "OC Course Plan"
-        if(this.user.advisorId != null) {
-          await AdvisorServices.getAdvisor(this.user.AdvisorId)
+        if(this.user != null && this.user.advisorId != null) {
+          await AdvisorServices.getAdvisor(this.user.advisorId)
           .catch(() => {
-                    Utils.setStore("user",null);
-                    this.$router.push({ name: 'main' });
+            console.log("no admin login");
+            Utils.setStore("user",null);
+            this.$router.push({ name: 'main' });
+                   
             });
-        if(this.user.StudentId != null){
-          await StudentServices.getStudent(this.user.studentId)
-            .catch(() => {
-                    Utils.setStore("user",null);
-                    this.$router.push({ name: 'main' });
-            });
-        }
+        } else {
+            if(this.user != null && this.user.studentId != null){
+              await StudentServices.getStudent(this.user.studentId)
+                .catch(() => {
+                  console.log("no student login");
+                  Utils.setStore("user",null);
+                  this.$router.push({ name: 'main' });
+              });
+          }
         }
     }
 }
