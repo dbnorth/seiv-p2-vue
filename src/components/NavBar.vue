@@ -8,7 +8,8 @@
           max-width="40"
           contain
         ></v-img>
-        <v-toolbar-title ref="toolbar-title">Course Plan - Hello {{user.user}}</v-toolbar-title>
+        <v-toolbar-title v-if=!user ref="toolbar-title">Course Plan - Hello {{user.user}}</v-toolbar-title>
+        <v-toolbar-title v-if=user ref="toolbar-title">Course Plan - No user logged in</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
            <v-btn v-for="menu in activeMenus"  exact :key="menu.ref" :ref="menu.ref" link :to="{name:menu.name, params: {id:user.userId}}" :color="menu.color" text >{{menu.text}}</v-btn>
