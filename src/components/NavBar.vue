@@ -80,7 +80,6 @@ export default {
       this.user = Utils.getStore('user');
       if (this.user !=null) this.title ="Course Plan - Hello "+this.user.user;
         else this.title ="Course Plan - no user logged in";
-      console.log("user="+this.user);
       if (this.user!= null)
       {
         this.activeMenus = this.menus.filter(menu => menu.roles.includes(this.user.roles));
@@ -89,7 +88,6 @@ export default {
 
         this.activeMenus = this.menus.filter(menu => menu.roles.includes("None"));
         this.user = {advisorId: ''};
-
       }
     },
     methods: {
@@ -97,7 +95,5 @@ export default {
         this.$router.push({ name: route})
       }
     }
-
-
 };
 </script>

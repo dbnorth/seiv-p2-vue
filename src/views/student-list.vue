@@ -10,6 +10,7 @@
                     :headers="headers"
                     :items="students"
                     :items-per-page="10"
+                    mobile-breakpoint="0"
                 
               >
                 <template v-slot:item.actions="{ item }">
