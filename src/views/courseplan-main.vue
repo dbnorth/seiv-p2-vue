@@ -25,6 +25,7 @@ export default {
     async created()  {
         this.user = Utils.getStore('user');
         document.title = "OC Course Plan"
+        console.log("advisorId="+this.user.advisorId+" studentId="+this.user.studentId)
         if(this.user != null && this.user.advisorId != null) {
           await AdvisorServices.getAdvisor(this.user.advisorId)
           .catch(() => {
