@@ -171,6 +171,7 @@ export default {
         ],
         activeMenus: [],
     }),
+
     created() {
         this.user = Utils.getStore('user');
         if (this.user != null)

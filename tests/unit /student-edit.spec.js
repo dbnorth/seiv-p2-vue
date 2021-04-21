@@ -78,7 +78,7 @@ describe('Student Edit Test', () => {
  
     wrapper = mount(StudentEdit,
       { 
-        propsdata :{id:"1"},
+        propsData :{id:"1"},
         stubs: [],
         localVue,
         vuetify
@@ -96,6 +96,7 @@ describe('Student Edit Test', () => {
   });
 
   test('if save button call updateStudnet with cortrect data', async () => {
+
     let data = {data : {id: "1",
       idNumber: "10000001",
       firstName: "Jack",
@@ -109,16 +110,17 @@ describe('Student Edit Test', () => {
     let emptyData = {data: []};
 
     StudentServices.getStudent.mockResolvedValue(data);
-    StudentServices.updateStudent.mockResolvedValue();
+    StudentServices.updateStudent.mockResolvedValue(data);
     DegreeServices.getDegrees.mockResolvedValue(emptyData);
     AdvisorServices.getAdvisors.mockResolvedValue(emptyData);
 
     let user = {user:'Jack', roles:'Student'};
     Utils.getStore.mockImplementation(() => user);
 
+    let id = "1";
     wrapper = mount(StudentEdit,
       { 
-        propsdata :{id:"1"},
+        propsData : {id: id},
         localVue,
         vuetify,
         router
@@ -129,12 +131,14 @@ describe('Student Edit Test', () => {
       let saveButton = wrapper.findComponent( {ref : "saveBtn"});
       saveButton.trigger('click');
       await Vue.nextTick();
-
+      expect(StudentServices.getStudent).toHaveBeenCalled();
+      expect(StudentServices.getStudent).toHaveBeenCalledWith("1");
       expect(StudentServices.updateStudent).toHaveBeenCalled();
       expect(StudentServices.updateStudent).toHaveBeenCalledWith(data.data);
 
 
   });
+ 
   test('if delete button call updateStudnet with cortrect data', async () => {
     let data = {data : {id: "1",
       idNumber: "10000001",
@@ -159,7 +163,7 @@ describe('Student Edit Test', () => {
 
     wrapper = mount(StudentEdit,
       { 
-        propsdata :{id:"1"},
+        propsData :{id:"1"},
         localVue,
         vuetify,
         router
@@ -173,7 +177,6 @@ describe('Student Edit Test', () => {
       expect(wrapper.findComponent( {ref : "deleteBtn"}).exists()).toBe(true);
       expect(StudentServices.deleteStudent).toHaveBeenCalled();
       expect(StudentServices.deleteStudent).toHaveBeenCalledWith("1");
-
 
   });
 
