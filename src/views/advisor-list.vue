@@ -10,6 +10,7 @@
                     :headers="headers"
                     :items="advisors"
                     :items-per-page="10"
+                    mobile-breakpoint="0"
                     @click:row="selectRow"
               >
                 

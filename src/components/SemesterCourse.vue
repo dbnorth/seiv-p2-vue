@@ -6,6 +6,7 @@
       :items="studentCourses"
       hide-default-footer
       class="elevation - 1"
+      mobile-breakpoint="0"
       @click:row="selectRow"
   >
   </v-data-table>
@@ -28,24 +29,28 @@ export default {
                     value: 'course.number',
                     align: 'left',
                     sortable: false,
+                    width: "1%"
                 },
                                 {
                     text: 'Course',
                     value: 'course.name',
                     align: 'left',
                     sortable: false,
+                    width: "1%"
                 },
                 {
                     text: 'Grade',
                     value: 'grade',
                     align: 'left',
                     sortable: false,
+                    width: "1%"
                 },
                 {
                     text: 'Note',
                     value: 'note',
                     align: 'left',
                     sortable: false,
+                    width: "1%"
                 },
               
             ],

@@ -15,6 +15,7 @@
                     :items="courses"
                     :items-per-page="25"
                     class="elevation - 1"
+                    mobile-breakpoint="0"
                     @click:row="selectRow"
                 >
                 </v-data-table>
@@ -37,6 +38,7 @@ export default {
                     align: 'left',
                     sortable: true,
                     value: 'number',
+                    width: "150"
                 },
                 {
                     text: 'Course Name',
