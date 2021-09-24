@@ -175,8 +175,8 @@ export default {
     created() {
         this.user = Utils.getStore('user');
         if (this.user != null)
-            this.title = 'Course Planner - Hello ' + this.user.user;
-        else this.title = 'Course Planner - no user logged in';
+            this.title = 'Course Planner SE2 - Hello ' + this.user.user;
+        else this.title = 'Course Planner SE2 - no user logged in';
         console.log('user=' + this.user);
         if (this.user != null) {
             this.activeMenus = this.menus.filter(menu =>
