@@ -74,7 +74,7 @@ describe('NavBar Test', () => {
 
         await Vue.nextTick();
         expect(wrapper.findComponent({ ref: 'toolbar-title' }).text()).toBe(
-            'Course Planner - Hello James',
+            'Course Planner SE2 - Hello James',
         );
     });
 
